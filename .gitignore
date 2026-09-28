@@ -1,0 +1,31 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Xcode build artifacts
+build/
+DerivedData/
+
+# Xcode user-specific settings
+*.pbxuser
+!default.pbxuser
+*.mode1v3
+!default.mode1v3
+*.mode2v3
+!default.mode2v3
+*.perspectivev3
+!default.perspectivev3
+xcuserdata/
+*.moved-aside
+*.xccheckout
+*.xcscmblueprint
+**/*.xcworkspace/xcuserdata/
+**/*.xcworkspace/xcshareddata/swiftpm/
+
+# Swift Package Manager build products
+.build/
+
+# Environment / secrets (never commit real credentials)
+.env
+*.env

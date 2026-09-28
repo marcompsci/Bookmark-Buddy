@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!--
+  PrivacyInfo.xcprivacy — Apple Privacy Manifest
+  Required for App Store submission (iOS 17+).
+  Declares which "Required Reason" APIs the app uses and why.
+
+  Copyright © 2026 Omari Bell. All rights reserved.
+-->
+<plist version="1.0">
+<dict>
+
+    <!-- ── Data collected by this app ──────────────────────────────────── -->
+    <key>NSPrivacyCollectedDataTypes</key>
+    <array>
+        <!-- Reading progress and library data stored locally, not sent off-device -->
+        <dict>
+            <key>NSPrivacyCollectedDataType</key>
+            <string>NSPrivacyCollectedDataTypeOtherUserContent</string>
+            <key>NSPrivacyCollectedDataTypeLinked</key>
+            <false/>
+            <key>NSPrivacyCollectedDataTypeTracking</key>
+            <false/>
+            <key>NSPrivacyCollectedDataTypePurposes</key>
+            <array>
+                <string>NSPrivacyCollectedDataTypePurposeAppFunctionality</string>
+            </array>
+        </dict>
+    </array>
+
+    <!-- ── Required Reason APIs ────────────────────────────────────────── -->
+    <key>NSPrivacyAccessedAPITypes</key>
+    <array>
+
+        <!-- UserDefaults: stores theme preferences and onboarding state -->
+        <dict>
+            <key>NSPrivacyAccessedAPIType</key>
+            <string>NSPrivacyAccessedAPICategoryUserDefaults</string>
+            <key>NSPrivacyAccessedAPITypeReasons</key>
+            <array>
+                <!-- CA92.1: Access info from same app as the app itself -->
+                <string>CA92.1</string>
+            </array>
+        </dict>
+
+        <!-- File timestamp: used when sorting library books by modification date -->
+        <dict>
+            <key>NSPrivacyAccessedAPIType</key>
+            <string>NSPrivacyAccessedAPICategoryFileTimestamp</string>
+            <key>NSPrivacyAccessedAPITypeReasons</key>
+            <array>
+                <!-- C617.1: Access the timestamps to display to the user -->
+                <string>C617.1</string>
+            </array>
+        </dict>
+
+        <!-- System boot time: used only via Date/Calendar, not raw uptime -->
+        <dict>
+            <key>NSPrivacyAccessedAPIType</key>
+            <string>NSPrivacyAccessedAPICategorySystemBootTime</string>
+            <key>NSPrivacyAccessedAPITypeReasons</key>
+            <array>
+                <!-- 35F9.1: Calculate the absolute time of an event the user interacts with -->
+                <string>35F9.1</string>
+            </array>
+        </dict>
+
+    </array>
+
+    <!-- ── Tracking ─────────────────────────────────────────────────────── -->
+    <!-- This app does not track users across apps or websites. -->
+    <key>NSPrivacyTracking</key>
+    <false/>
+
+    <key>NSPrivacyTrackingDomains</key>
+    <array/>
+
+</dict>
+</plist>
