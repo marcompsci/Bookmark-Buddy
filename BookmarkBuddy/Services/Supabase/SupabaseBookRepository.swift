@@ -140,21 +140,21 @@ struct SupabaseBookRepository: BookRepository {
     }
 
     // MARK: Books
+    // Books are served from local static data so the library is always populated
+    // without requiring the Supabase `books` table to be seeded. User-specific
+    // data (progress, notes, moments) is the only thing that goes to the server.
+
+    private static let localBooks: [Book] = DemoData.books + PersonalShelf.books
 
     func allBooks() async throws -> [Book] {
-        let rows: [BookRow] = try await db.from("books").select().execute().value
-        return rows.map { $0.toBook }
+        Self.localBooks
     }
 
     func book(id: UUID) async throws -> Book {
-        let rows: [BookRow] = try await db.from("books")
-            .select()
-            .eq("id", value: id.uuidString)
-            .limit(1)
-            .execute()
-            .value
-        guard let row = rows.first else { throw RepositoryError.notFound }
-        return row.toBook
+        guard let book = Self.localBooks.first(where: { $0.id == id }) else {
+            throw RepositoryError.notFound
+        }
+        return book
     }
 
     // MARK: Progress

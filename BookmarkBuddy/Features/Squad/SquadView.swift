@@ -64,6 +64,7 @@ struct SquadView: View {
         PrimaryButton(title: "Create an Event", systemImage: "calendar.badge.plus") {
             router.present(.createEvent(nil))
         }
+        .guideAnchor(.createEventButton)
         SecondaryButton(title: "Start a Buddy Read", systemImage: "person.2.fill") {
             router.present(.buddyRead(bookID: nil))
         }
@@ -83,6 +84,7 @@ struct SquadView: View {
                 ) {
                     router.present(.createEvent(nil))
                 }
+                .guideAnchor(.createEventButton)
                 .bbCard()
             } else {
                 ForEach(content.events) { event in

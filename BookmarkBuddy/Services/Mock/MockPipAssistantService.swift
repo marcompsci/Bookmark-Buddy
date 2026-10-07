@@ -63,6 +63,17 @@ actor MockPipAssistantService: PipAssistantService {
             return PipMessage(role: .pip, text: "You don't have a book in progress yet. Head to your library and pick something!", action: .openTab(.library))
         }
 
+        // "Show me how to create a trivia night." / "Walk me through it" → Guide Me
+        let wantsWalkthrough = ["show me how", "walk me through", "guide me", "teach me", "step by step"].contains { prompt.contains($0) }
+            || (prompt.contains("how do i") && (prompt.contains("event") || prompt.contains("trivia")))
+        if wantsWalkthrough {
+            return PipMessage(
+                role: .pip,
+                text: "Let's do it together. I'll highlight each step — tap Next whenever you're ready, or End guide to stop.",
+                action: .startGuide(walkthroughID: DemoData.triviaNightWalkthrough.id)
+            )
+        }
+
         // "Help me create a trivia night." / "Create an event"
         if prompt.contains("trivia") || prompt.contains("create event") || prompt.contains("trivia night") {
             return PipMessage(
@@ -106,8 +117,8 @@ actor MockPipAssistantService: PipAssistantService {
         if prompt.contains("how do i") || prompt.contains("navigate") || prompt.contains("help me") || prompt.contains("tutorial") {
             return PipMessage(
                 role: .pip,
-                text: "I've got you, \(name)! Here's the quick tour: Home has your current book and my daily nudge. Squad is your reading group. Play has quizzes and your memory garden. Library holds all your books. Explore lets you discover other readers.",
-                action: nil
+                text: "I've got you, \(name)! Here's the quick tour: Home has your current book and my daily nudge. Squad is your reading group. Play has quizzes and your memory garden. Library holds all your books. Explore lets you discover other readers. Want me to walk you through planning a trivia night?",
+                action: .startGuide(walkthroughID: DemoData.triviaNightWalkthrough.id)
             )
         }
 

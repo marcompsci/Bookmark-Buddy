@@ -3,9 +3,17 @@
 
 import Foundation
 
-/// Identifies a view that Guide Me can highlight. Views opt in with `.guideAnchor(_:)` (Phase 8).
+/// Identifies a view that Guide Me can highlight. Views opt in with `.guideAnchor(_:)`.
 enum GuideTarget: String, Codable, Hashable, Sendable {
     case squadTab, createEventButton, eventTypeTrivia, eventDatePicker, eventConfirmButton, pipButton
+
+    /// Steps shown inside the Create Event sheet rather than on the main screen.
+    var isInEventPlanner: Bool {
+        switch self {
+        case .eventTypeTrivia, .eventDatePicker, .eventConfirmButton: true
+        default: false
+        }
+    }
 }
 
 struct GuideStep: Codable, Identifiable, Hashable, Sendable {

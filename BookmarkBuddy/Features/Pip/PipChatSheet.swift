@@ -290,8 +290,9 @@ struct PipChatSheet: View {
                 router.push(.eventDetail(event.id), in: .squad)
                 router.select(.squad)
             }
-        case .startGuide:
-            break // Guide Me wired in Phase 8
+        case .startGuide(let walkthroughID):
+            dismiss()
+            router.guide.start(walkthroughID)
         case .showPrivacy:
             dismiss()
             router.push(.privacySafety, in: .profile)

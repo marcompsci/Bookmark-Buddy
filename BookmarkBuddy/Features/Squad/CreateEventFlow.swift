@@ -67,6 +67,7 @@ struct CreateEventFlow: View {
                         review()
                     }
                     .disabled(validationMessage != nil)
+                    .guideAnchor(.eventConfirmButton)
                     Text("You'll confirm before your squad is notified.")
                         .font(.bbCaption)
                         .foregroundStyle(Theme.Palette.parchmentMuted)
@@ -111,6 +112,7 @@ struct CreateEventFlow: View {
                         }
                     }
                 }
+                .guideAnchor(option == .triviaNight ? .eventTypeTrivia : nil)
             }
         }
     }
@@ -138,6 +140,8 @@ struct CreateEventFlow: View {
                 )
                 .foregroundStyle(Theme.Palette.parchment)
                 .tint(Theme.Palette.gold)
+                .guideAnchor(.eventDatePicker)
+                .onChange(of: startsAt) { router.guide.reached(.eventDatePicker) }
 
                 Stepper(value: $durationMinutes, in: 15...180, step: 15) {
                     Text("Length: \(durationMinutes) min")
@@ -184,6 +188,7 @@ struct CreateEventFlow: View {
     private func select(_ option: EventType) {
         let previousDefault = type.displayName
         type = option
+        if option == .triviaNight { router.guide.reached(.eventTypeTrivia) }
         durationMinutes = option.defaultDurationMinutes
         // Only replace the name if the person hasn't customized it.
         if !titleEdited || title == previousDefault {
@@ -205,6 +210,7 @@ struct CreateEventFlow: View {
             bookID: bookID,
             notes: notes.trimmingCharacters(in: .whitespacesAndNewlines)
         )
+        router.guide.reached(.eventConfirmButton)
         pending = .createEvent(event)
     }
 }

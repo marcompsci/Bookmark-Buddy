@@ -34,6 +34,10 @@ struct RootTabView: View {
                 .ignoresSafeArea()
                 .allowsHitTesting(true)
         }
+        .guideCoachHost()
+        .onChange(of: router.selectedTab) { syncGuideWithNavigation() }
+        .onChange(of: router.guide.currentStep?.target) { syncGuideWithNavigation() }
+        .onChange(of: router.sheet == nil) { syncGuideWithNavigation() }
         .sheet(item: $router.sheet) { sheet in
             AppSheetView(sheet: sheet)
         }
@@ -42,6 +46,18 @@ struct RootTabView: View {
         }
         .overlay(alignment: .top) {
             ToastOverlay()
+        }
+    }
+
+    /// Advances or rewinds Guide Me based on where the person actually is.
+    private func syncGuideWithNavigation() {
+        guard let target = router.guide.currentStep?.target else { return }
+        if target == .squadTab, router.selectedTab == .squad {
+            router.paths[.squad] = NavigationPath() // the Create button lives on the Squad root
+            router.guide.reached(.squadTab)
+        } else if target.isInEventPlanner, router.sheet == nil {
+            // The planner was closed mid-guide; point back at the button that reopens it.
+            router.guide.rewind(to: .createEventButton)
         }
     }
 }
@@ -106,7 +122,9 @@ struct AppSheetView: View {
                         }
                     }
             }
+            .guideCoachHost(inSheet: true)
             .presentationDragIndicator(.visible)
+            .onAppear { router.guide.reached(.createEventButton) }
 
         case .buddyRead(let bookID):
             NavigationStack {

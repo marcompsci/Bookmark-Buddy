@@ -16,6 +16,8 @@ final class AppRouter {
     var pendingConfirmation: PendingAction?
     /// Brief, non-blocking feedback after an action completes.
     var toast: Toast?
+    /// Guide Me walkthrough state (Phase 8).
+    let guide = GuideCoordinator()
     /// Bumped whenever shared data changes, so screens can reload with `.task(id:)`.
     private(set) var dataVersion = 0
 
@@ -39,6 +41,7 @@ final class AppRouter {
         paths = [:]
         sheet = nil
         pendingConfirmation = nil
+        guide.end()
     }
 
     func path(for tab: AppTab) -> Binding<NavigationPath> {
