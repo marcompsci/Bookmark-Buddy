@@ -6,33 +6,27 @@ import Foundation
 /// Supabase project credentials.
 ///
 /// HOW TO CONFIGURE:
-/// 1. Go to https://app.supabase.com → your project → Settings → API
-/// 2. In Xcode: Edit Scheme → Run → Environment Variables, add:
-///      SUPABASE_URL      = https://xxxxxxxxxxxx.supabase.co
-///      SUPABASE_ANON_KEY = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+/// Fill in BookmarkBuddy/Config/SupabaseCredentials.swift with your project URL
+/// and anon key from https://app.supabase.com → Settings → API.
+/// That file is gitignored so your credentials stay local.
 ///
-/// Never hard-code these values or commit them to git.
+/// Env var override (CI / Xcode scheme): SUPABASE_URL, SUPABASE_ANON_KEY
 enum SupabaseConfig {
     static let projectURL: String = {
-        if let env = ProcessInfo.processInfo.environment["SUPABASE_URL"], !env.isEmpty {
-            return env
-        }
-        return "https://YOUR_PROJECT_ID.supabase.co"
+        if let env = ProcessInfo.processInfo.environment["SUPABASE_URL"], !env.isEmpty { return env }
+        return SupabaseCredentials.projectURL
     }()
 
     static let anonKey: String = {
-        if let env = ProcessInfo.processInfo.environment["SUPABASE_ANON_KEY"], !env.isEmpty {
-            return env
-        }
-        return "YOUR_ANON_KEY"
+        if let env = ProcessInfo.processInfo.environment["SUPABASE_ANON_KEY"], !env.isEmpty { return env }
+        return SupabaseCredentials.anonKey
     }()
 
-    /// Returns `true` once the developer has filled in real credentials.
+    /// Returns `true` once real credentials are present in SupabaseCredentials.swift.
     static var isConfigured: Bool {
         !projectURL.contains("YOUR_PROJECT_ID") && !anonKey.contains("YOUR_ANON_KEY")
     }
 
-    /// Custom URL scheme registered in Info.plist for OAuth callbacks (Apple / Google).
-    /// Must match the redirect URL configured in the Supabase Auth dashboard.
+    /// Custom URL scheme for OAuth callbacks. Must match the Supabase Auth dashboard.
     static let oauthRedirectURL = "bookmarkbuddy://auth/callback"
 }

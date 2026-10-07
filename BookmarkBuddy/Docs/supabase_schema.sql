@@ -87,8 +87,16 @@ create table public.squad_members (
   unique(squad_id, user_id)
 );
 alter table public.squad_members enable row level security;
-create policy "Read own memberships" on public.squad_members
-  for select using (auth.uid() = user_id);
+
+-- Security-definer helper avoids self-referential RLS recursion.
+create or replace function get_my_squad_ids()
+returns uuid[] language sql security definer stable as $$
+  select array_agg(squad_id) from public.squad_members where user_id = auth.uid()
+$$;
+
+-- Allow reading ALL members of any squad you belong to (needed for leaderboard / squad view).
+create policy "Read members of my squads" on public.squad_members
+  for select using (squad_id = any(get_my_squad_ids()));
 create policy "Insert own membership" on public.squad_members
   for insert with check (auth.uid() = user_id);
 create policy "Update own membership" on public.squad_members
@@ -223,3 +231,16 @@ begin
   return query select * from reading_events where id = event_id;
 end;
 $$;
+
+-- ── Seed data ────────────────────────────────────────────────
+-- Run this section AFTER the schema above.
+-- The Midnight Margins squad uses a deterministic UUID that matches
+-- the hardcoded DemoData.IDs.midnightMargins value in the iOS app.
+-- Without this row, onboarding's squad-join step will silently fail.
+
+insert into public.squads (id, name, tagline)
+values (
+  '00000000-0000-4000-8000-000000000201',
+  'Midnight Margins',
+  'Late-night readers, early-morning opinions.'
+) on conflict (id) do nothing;
