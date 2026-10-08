@@ -14,7 +14,7 @@ struct PlayView: View {
             InkBackground()
             ScrollView {
                 VStack(alignment: .leading, spacing: Theme.Spacing.xl) {
-                    Text("Quiz, compete, and keep your books fresh.")
+                    Text("Grow your memory garden, quiz yourself, and stay sharp.")
                         .font(.bbBody)
                         .foregroundStyle(Theme.Palette.parchmentMuted)
 
@@ -39,7 +39,7 @@ struct PlayView: View {
             }
             .refreshable { await model.load(services: services) }
         }
-        .navigationTitle("Play")
+        .navigationTitle("Garden")
         .task(id: router.dataVersion) {
             await model.load(services: services)
         }

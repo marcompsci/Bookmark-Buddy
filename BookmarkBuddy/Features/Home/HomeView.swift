@@ -127,6 +127,10 @@ struct HomeView: View {
             )
         }
 
+        MemoryGardenTeaser {
+            router.select(.play)
+        }
+
         QuickActionsRow(
             onQuiz: { router.select(.play) },
             onCreateEvent: { router.present(.createEvent(nil)) },

@@ -20,6 +20,8 @@ struct CreateEventFlow: View {
     @State private var books: [Book] = []
     @State private var pending: PendingAction?
     @State private var titleEdited = false
+    /// The squad this event belongs to. Starts as the demo squad, replaced by the person's real squad on load.
+    @State private var squadID: UUID = DemoData.IDs.midnightMargins
 
     init(initialType: EventType?) {
         self.initialType = initialType
@@ -81,6 +83,9 @@ struct CreateEventFlow: View {
         .navigationBarTitleDisplayMode(.inline)
         .task {
             books = (try? await services.books.allBooks()) ?? []
+            if let squad = try? await services.squads.currentSquad() {
+                squadID = squad.id
+            }
         }
         .confirmationGate($pending) { action in
             await ActionPerformer(services: services, appState: appState, router: router).perform(action)
@@ -200,7 +205,7 @@ struct CreateEventFlow: View {
     private func review() {
         guard validationMessage == nil, let profile = appState.profile else { return }
         let event = ReadingEvent(
-            squadID: DemoData.IDs.midnightMargins,
+            squadID: squadID,
             type: type,
             title: trimmedTitle,
             startsAt: startsAt,

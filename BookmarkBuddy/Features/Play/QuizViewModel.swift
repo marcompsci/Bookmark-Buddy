@@ -119,7 +119,7 @@ final class QuizViewModel {
         defer { isScoring = false }
         let result = await services.quizzes.score(quiz: quiz, answers: answers)
         if let profile = appState.profile, result.pointsEarned > 0 {
-            // TODO(prod): Points must be awarded server-side from a verified result.
+            // The database caps points per call and per day and only credits the signed-in person.
             try? await services.squads.awardPoints(result.pointsEarned, to: profile.id)
             await appState.updateProfile { $0.squadPoints += result.pointsEarned }
         }

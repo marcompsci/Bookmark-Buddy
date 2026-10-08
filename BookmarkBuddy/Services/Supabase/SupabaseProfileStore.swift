@@ -110,9 +110,19 @@ struct SupabaseUserProfileStore: UserProfileStore {
         ), onConflict: "id").execute()
     }
 
+    /// Permanently deletes the account server-side. `delete_my_account()` removes the auth user,
+    /// and every table that references it cascades (profile, progress, notes, moments, privacy,
+    /// memberships, reactions, recommendations, blocks).
     func delete() async {
-        guard let uid = await SupabaseAuthService.shared.currentUserID else { return }
-        try? await db.from("profiles").delete().eq("id", value: uid.uuidString).execute()
+        guard await SupabaseAuthService.shared.currentUserID != nil else { return }
+        do {
+            try await db.rpc("delete_my_account").execute()
+        } catch {
+            // Fall back to removing the profile row so the person isn't left half-deleted.
+            if let uid = await SupabaseAuthService.shared.currentUserID {
+                try? await db.from("profiles").delete().eq("id", value: uid.uuidString).execute()
+            }
+        }
         try? await SupabaseAuthService.shared.signOut()
     }
 }

@@ -12,7 +12,7 @@ enum AppTab: String, Codable, CaseIterable, Identifiable, Hashable, Sendable {
         switch self {
         case .home: "Home"
         case .squad: "Squad"
-        case .play: "Play"
+        case .play: "Garden"
         case .library: "Library"
         case .explore: "Explore"
         case .profile: "Profile"
@@ -23,7 +23,7 @@ enum AppTab: String, Codable, CaseIterable, Identifiable, Hashable, Sendable {
         switch self {
         case .home: "house.fill"
         case .squad: "person.3.fill"
-        case .play: "gamecontroller.fill"
+        case .play: "leaf.fill"
         case .library: "books.vertical.fill"
         case .explore: "safari.fill"
         case .profile: "person.crop.circle.fill"
@@ -42,6 +42,14 @@ enum AppRoute: Hashable, Sendable {
     case userPublicShelf(ExploreUser)
     /// Community book recommendations shelf.
     case recommendedShelf
+    /// Omari's Digital Library: the spine shelf.
+    case digitalShelf(genre: String?)
+    /// A Digital Library book, by its id in DigitalLibraryBooks.json.
+    case digitalBook(id: String)
+    /// Every Digital Library book in one sortable list.
+    case digitalCatalogue
+    /// Recommend a book to Omari.
+    case recommendToOmari
 }
 
 /// Modal flows presented from anywhere (by views, Pip, or App Intents).

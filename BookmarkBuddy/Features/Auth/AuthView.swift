@@ -50,6 +50,25 @@ struct AuthView: View {
 
     private var formCard: some View {
         VStack(spacing: Theme.Spacing.md) {
+            // Info message (e.g. "check your email")
+            if let info = model.infoMessage, model.errorMessage == nil {
+                HStack(spacing: Theme.Spacing.sm) {
+                    Image(systemName: "envelope.badge.fill")
+                        .foregroundStyle(Theme.Palette.forestBright)
+                    Text(info)
+                        .font(.bbCallout)
+                        .foregroundStyle(Theme.Palette.parchment)
+                        .fixedSize(horizontal: false, vertical: true)
+                }
+                .padding(Theme.Spacing.md)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .background(
+                    RoundedRectangle(cornerRadius: Theme.Radius.sm)
+                        .fill(Theme.Palette.forest.opacity(0.25))
+                )
+                .accessibilityElement(children: .combine)
+            }
+
             // Error message
             if let error = model.errorMessage {
                 HStack(spacing: Theme.Spacing.sm) {

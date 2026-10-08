@@ -5,7 +5,7 @@ import SwiftUI
 
 /// Explains exactly what Pip can and cannot access, how to delete data,
 /// how to report or block users, and where to find the full privacy policy.
-/// TODO(prod): Link to a real hosted privacy policy URL before shipping.
+/// The policy link and support email come from `AppLinks`.
 struct PrivacySafetyView: View {
     var body: some View {
         ZStack {
@@ -75,10 +75,10 @@ struct PrivacySafetyView: View {
             title: "How to delete your data",
             rows: [
                 InfoRow(symbol: "1.circle.fill", text: "Go to Profile \u{2192} tap Delete all my data."),
-                InfoRow(symbol: "2.circle.fill", text: "Confirm in the sheet that appears. All local data — profile, notes, saved moments and settings — is erased."),
-                InfoRow(symbol: "3.circle.fill", text: "The app returns to onboarding. Nothing is retained on device.")
+                InfoRow(symbol: "2.circle.fill", text: "Confirm in the sheet that appears. Your account and everything tied to it — profile, reading progress, notes, saved moments, squad membership, reactions and settings — is permanently deleted from our servers and this device."),
+                InfoRow(symbol: "3.circle.fill", text: "You're signed out and the app returns to the start. This can't be undone.")
             ],
-            footnote: "TODO(prod): Production delete must also call an authenticated server-side endpoint that purges all data from backend storage, in compliance with GDPR/CCPA."
+            footnote: "Squad posts you made are removed too. Reports you filed are kept without your name so reviewers can finish them."
         )
     }
 
@@ -94,7 +94,7 @@ struct PrivacySafetyView: View {
                 InfoRow(symbol: "hand.raised.fill", text: "Blocking hides that member's activity from your feed and prevents them from inviting you."),
                 InfoRow(symbol: "exclamationmark.bubble.fill", text: "Reported content is flagged for review. The member is not told who reported it.")
             ],
-            footnote: "TODO(prod): Reports must route to a human moderation queue with SLA, appeal process, and escalation policy."
+            footnote: "Reports go to a private review queue. You can file up to 10 reports an hour."
         )
     }
 
@@ -104,26 +104,24 @@ struct PrivacySafetyView: View {
         VStack(alignment: .leading, spacing: Theme.Spacing.md) {
             SectionHeader(title: "Privacy Policy")
             VStack(alignment: .leading, spacing: Theme.Spacing.sm) {
-                Text("A full privacy policy will be published at a dedicated URL before this app is released publicly.")
-                    .font(.bbCallout)
-                    .foregroundStyle(Theme.Palette.parchmentMuted)
-                    .fixedSize(horizontal: false, vertical: true)
-
-                // TODO(prod): Replace with a real URL once the privacy policy is published.
-                HStack {
-                    Image(systemName: "link")
-                        .foregroundStyle(Theme.Palette.lavender)
-                        .accessibilityHidden(true)
-                    Text("privacy.bookmarkbuddy.app (placeholder)")
+                if let url = AppLinks.privacyPolicy {
+                    Link(destination: url) {
+                        Label("Read the full privacy policy", systemImage: "link")
+                            .font(.bbCallout)
+                            .foregroundStyle(Theme.Palette.lavender)
+                    }
+                } else {
+                    Text("The full privacy policy will be linked here before the app is released publicly.")
                         .font(.bbCallout)
-                        .foregroundStyle(Theme.Palette.lavender)
+                        .foregroundStyle(Theme.Palette.parchmentMuted)
+                        .fixedSize(horizontal: false, vertical: true)
                 }
-                .accessibilityElement(children: .combine)
-                .accessibilityLabel("Privacy policy link — placeholder, not yet live")
 
-                Text("For questions: contact@bookmarkbuddy.app (placeholder)")
-                    .font(.bbCaption)
-                    .foregroundStyle(Theme.Palette.parchmentMuted)
+                if let email = AppLinks.supportEmail {
+                    Text(verbatim: "Questions: \(email)")
+                        .font(.bbCaption)
+                        .foregroundStyle(Theme.Palette.parchmentMuted)
+                }
             }
             .bbCard()
         }

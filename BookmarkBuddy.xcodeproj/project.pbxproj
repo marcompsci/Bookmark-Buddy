@@ -218,6 +218,7 @@
 				DEVELOPMENT_TEAM = X6LZQ3FS36;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "BookmarkBuddy-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Bookmark Buddy";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -247,6 +248,7 @@
 				DEVELOPMENT_TEAM = X6LZQ3FS36;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "BookmarkBuddy-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Bookmark Buddy";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;

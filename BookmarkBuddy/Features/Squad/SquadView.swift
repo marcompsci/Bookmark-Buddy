@@ -440,7 +440,7 @@ enum ReportReason: String, CaseIterable, Identifiable {
 }
 
 /// Collects a reason, then routes through the shared confirmation gate before anything is "sent".
-/// TODO(prod): Submit to a server-side moderation queue with rate limits and reviewer tooling.
+/// Reports land in the server-side `content_reports` queue (rate-limited by the database).
 struct ReportSheet: View {
     let item: ActivityFeedItem
     let memberName: String

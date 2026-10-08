@@ -124,18 +124,20 @@ struct SupabaseSquadRepository: SquadRepository {
 
     func join(squadID: UUID, as profile: UserProfile) async throws -> ReadingSquad {
         let uid = try await userID
+        // weekly_points is left out on purpose: the database only lets award_points() change it.
         struct Insert: Encodable {
             let squadId: UUID; let userId: UUID
-            let displayName: String; let avatarSeed: Int; let weeklyPoints: Int
+            let displayName: String; let avatarSeed: Int
             enum CodingKeys: String, CodingKey {
-                case displayName = "display_name"; case avatarSeed = "avatar_seed"; case weeklyPoints = "weekly_points"
+                case displayName = "display_name"; case avatarSeed = "avatar_seed"
                 case squadId = "squad_id"; case userId = "user_id"
             }
         }
+        // Stable across launches (hashValue is randomized per process).
+        let avatarSeed = Int(uid.uuid.0 % 6)
         try await db.from("squad_members").upsert(Insert(
             squadId: squadID, userId: uid,
-            displayName: profile.displayName, avatarSeed: abs(uid.hashValue % 6),
-            weeklyPoints: 0
+            displayName: profile.displayName, avatarSeed: avatarSeed
         ), onConflict: "squad_id,user_id").execute()
         return try await currentSquad()
     }
@@ -197,7 +199,8 @@ struct SupabaseSquadRepository: SquadRepository {
     }
 
     func awardPoints(_ points: Int, to memberID: UUID) async throws {
-        // Server-side RPC to prevent client-side tampering.
+        // Server-side RPC: the database only accepts points for the signed-in person,
+        // bounded per call and per day, and records each award in points_ledger.
         struct Args: Encodable { let member_id: UUID; let points: Int }
         try await db.rpc("award_points", params: Args(member_id: memberID, points: points)).execute()
     }

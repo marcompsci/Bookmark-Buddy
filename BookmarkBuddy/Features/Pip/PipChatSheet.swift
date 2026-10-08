@@ -90,7 +90,7 @@ struct PipChatSheet: View {
                 )
                 messages.append(greeting)
 
-                if let bookID, let book = DemoData.books.first(where: { $0.id == bookID }) {
+                if let bookID, let book = try? await services.books.book(id: bookID) {
                     let scoped = PipMessage(
                         role: .pip,
                         text: "You opened me from \(book.title). Ask me anything about it!",
@@ -228,7 +228,7 @@ struct PipChatSheet: View {
         }
 
         isTyping = true
-        let context = buildContext()
+        let context = await buildContext()
         let reply = await services.pip.reply(to: prompt, context: context)
         isTyping = false
         messages.append(reply)
@@ -239,20 +239,30 @@ struct PipChatSheet: View {
         }
     }
 
-    private func buildContext() -> PipContext {
+    /// Pulls Pip's context from the live services (Supabase when configured, demo data otherwise),
+    /// filtered by the person's privacy settings. Failures just leave that piece out.
+    private func buildContext() async -> PipContext {
         let profile = appState.profile
-        let currentBook = DemoData.progress.first(where: { $0.state == .reading })
-            .flatMap { progress in DemoData.books.first(where: { $0.id == progress.bookID })
-                .map { BookWithProgress(book: $0, progress: progress) }
-            }
-        let squad = try? DemoData.squad
-        let event = DemoData.events.first
+        let permissions = appState.pipPermissions
+
+        let currentBook: BookWithProgress? = permissions.allowReadingProgress
+            ? (try? await services.books.currentRead())
+            : nil
+        let squad = try? await services.squads.currentSquad()
+        var event: ReadingEvent? = nil
+        if let squad {
+            event = (try? await services.events.upcomingEvents(squadID: squad.id))?
+                .filter { $0.startsAt > .now }
+                .min { $0.startsAt < $1.startsAt }
+        }
 
         var notes: [BookNote]? = nil
         var moments: [SavedMoment]? = nil
-        if appState.pipPermissions.allowsNotes {
-            notes = DemoData.notes
-            moments = DemoData.moments
+        if permissions.allowsNotes {
+            if let bookID = bookID ?? currentBook?.book.id {
+                notes = try? await services.books.notes(for: bookID)
+            }
+            moments = try? await services.books.allMoments()
         }
 
         return PipContext(
@@ -285,7 +295,16 @@ struct PipChatSheet: View {
             dismiss()
             router.present(.buddyRead(bookID: nil))
         case .showUpcomingEvent:
-            if let event = DemoData.events.first {
+            Task {
+                guard let squad = try? await services.squads.currentSquad(),
+                      let event = (try? await services.events.upcomingEvents(squadID: squad.id))?
+                        .filter({ $0.startsAt > .now })
+                        .min(by: { $0.startsAt < $1.startsAt })
+                else {
+                    dismiss()
+                    router.select(.squad)
+                    return
+                }
                 dismiss()
                 router.push(.eventDetail(event.id), in: .squad)
                 router.select(.squad)

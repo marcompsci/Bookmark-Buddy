@@ -1,0 +1,576 @@
+[
+ {
+  "id": "the-intelligent-investor",
+  "title": "The Intelligent Investor",
+  "subtitle": "Third Edition",
+  "author": "Benjamin Graham",
+  "authorNote": "with commentary by Jason Zweig",
+  "year": 2024,
+  "firstPublished": 1949,
+  "genre": "Finance & Investing",
+  "publisher": "Harper Business",
+  "spine": {
+   "title": "Intelligent Investor",
+   "author": "Graham",
+   "background": "#1D2B45",
+   "text": "#F1E7CF",
+   "accent": "#C9A45C",
+   "fontStyle": "classic",
+   "decoration": "bands",
+   "widthPt": 60,
+   "heightPt": 318,
+   "tilted": false
+  },
+  "coverMotif": "rule",
+  "description": "Benjamin Graham's case for investing through analysis instead of emotion, updated with Jason Zweig's chapter-by-chapter commentary for today's markets. This is where Mr. Market, the margin of safety, and the line between investing and speculating come from, and why Warren Buffett keeps pointing people to it.",
+  "quotes": [
+   {
+    "text": "The investor's chief problem—and even his worst enemy—is likely to be himself."
+   },
+   {
+    "text": "In the short run, the market is a voting machine, but in the long run, it is a weighing machine."
+   },
+   {
+    "text": "An investment operation is one which, upon thorough analysis, promises safety of principal and an adequate return. Operations not meeting these requirements are speculative."
+   }
+  ],
+  "panels": {
+   "whyThisMatters": [
+    {
+     "kind": "heading",
+     "text": "Key Reasons"
+    },
+    {
+     "kind": "quoteHeading",
+     "text": "The Psychology of Investing",
+     "detail": "\"The investor's chief problem…\""
+    },
+    {
+     "kind": "paragraph",
+     "text": "Financial failure rarely stems from a lack of intelligence or complex financial analysis. Instead, it comes from letting emotion, like panic during a market drop or greed during a bull market, dictate your financial choices. True investors conquer their own impulses before trying to conquer the market."
+    },
+    {
+     "kind": "quoteHeading",
+     "text": "Value vs. Market Sentiment",
+     "detail": "\"In the short run, the market is a voting machine…\""
+    },
+    {
+     "kind": "paragraph",
+     "text": "Short-term stock prices merely reflect a popularity contest driven by hype, fear, and current trends. Over long time horizons, however, the market eventually \"weighs\" a company's real underlying value, tying its price directly to actual earnings and fundamental health."
+    },
+    {
+     "kind": "quoteHeading",
+     "text": "The Definition of True Investing",
+     "detail": "\"An investment operation is one which…\""
+    },
+    {
+     "kind": "paragraph",
+     "text": "Graham draws a sharp line between real investing and gambling. If you buy an asset without deeply analyzing its fundamentals, or if you expose your core capital to complete loss for the promise of massive returns, you are speculating. Protecting your initial money is always step number one."
+    }
+   ]
+  }
+ },
+ {
+  "id": "money-works",
+  "title": "Money Works",
+  "subtitle": "The Guide to Financial Literacy",
+  "author": "Abhijeet Kolapkar",
+  "authorNote": null,
+  "year": 2023,
+  "firstPublished": null,
+  "genre": "Finance & Investing",
+  "publisher": "Penguin",
+  "spine": {
+   "title": "Money Works",
+   "author": "Kolapkar",
+   "background": "#1F4D3A",
+   "text": "#F4EFE2",
+   "accent": "#E3B23C",
+   "fontStyle": "heavy",
+   "decoration": "block",
+   "widthPt": 36,
+   "heightPt": 270,
+   "tilted": false
+  },
+  "coverMotif": "coins",
+  "description": "A plain-language primer on personal finance. It walks through budgeting, saving, debt, insurance, and investing, then shows how small, steady decisions add up to real financial freedom. A good first book for anyone who never got this in school.",
+  "quotes": [
+   {
+    "text": "The best weight you'll ever lose is the weight of other people's opinion of you."
+   },
+   {
+    "text": "Financial literacy is a learnable skill schools never taught you."
+   },
+   {
+    "text": "Overconfidence, not ignorance, is what wrecks financial decisions."
+   }
+  ],
+  "panels": {
+   "briefSummary": [
+    {
+     "kind": "heading",
+     "text": "Key Lessons"
+    },
+    {
+     "kind": "subheading",
+     "text": "1. Mindset and Behavioral Traps"
+    },
+    {
+     "kind": "bullet",
+     "text": "**The Overconfidence Trap:** Kolapkar highlights the *Dunning-Kruger effect* in personal finance. Many investors lose money because they mistake a rising market for personal skill, leading to uncalculated risks."
+    },
+    {
+     "kind": "bullet",
+     "text": "**Social Comparison:** Spending money on \"status symbols\" to impress peers is the fastest way to derail wealth generation."
+    },
+    {
+     "kind": "subheading",
+     "text": "2. Structural Budgeting"
+    },
+    {
+     "kind": "bullet",
+     "text": "**Flip Your Formula:** Most people follow the pattern: *Income − Expenses = Savings*. The book advises changing this entirely to: **Income − Savings = Expenses**. By automating savings first, you eliminate structural overspending."
+    },
+    {
+     "kind": "bullet",
+     "text": "**The Three-Jar System:** When income is received, partition it immediately into three destinations: **Expenses** (everyday needs), **Savings** (liquid cash for goals or emergencies), and **Investments** (wealth building for tomorrow)."
+    },
+    {
+     "kind": "subheading",
+     "text": "3. Defending What You Build"
+    },
+    {
+     "kind": "bullet",
+     "text": "**The Foundation First:** Before investing a single dollar into the market, you must clear your financial \"gravity\". This requires building an **emergency fund covering 3 to 6 months of living expenses** and aggressively paying down high-interest \"bad debt\" (like credit cards or personal loans) using methods like the debt avalanche."
+    },
+    {
+     "kind": "bullet",
+     "text": "**Insurance vs. Investing:** Kolapkar strongly urges readers never to mix insurance with wealth generation (such as traditional endowment policies). Buy simple **term life and health insurance** solely for risk coverage, and keep investment accounts completely separate."
+    }
+   ],
+   "briefInvestmentStrategies": [
+    {
+     "kind": "paragraph",
+     "text": "Kolapkar's approach favors low-maintenance, high-discipline wealth accumulation over active market-timing."
+    },
+    {
+     "kind": "tableHeader",
+     "text": "Strategy element",
+     "detail": "The *Money Works* approach"
+    },
+    {
+     "kind": "row",
+     "text": "Time Horizon",
+     "detail": "Focus on long-term compound growth. Starting early at age 25 with smaller sums vastly outperforms starting at 40 with larger amounts."
+    },
+    {
+     "kind": "row",
+     "text": "Asset Allocation",
+     "detail": "Strategically diversify your capital across mutual funds, diversified index funds, real estate, and fixed income."
+    },
+    {
+     "kind": "row",
+     "text": "Trading vs. Investing",
+     "detail": "Avoid intra-day trading or chasing volatile crypto trends. The book defines fast trading as disguised gambling rather than wealth creation."
+    },
+    {
+     "kind": "row",
+     "text": "Handling Inflation",
+     "detail": "Cash left sitting idle in traditional checking accounts loses value over time. Your capital must be put to work in compounding assets to outpace inflation."
+    },
+    {
+     "kind": "row",
+     "text": "Risk Guardrails",
+     "detail": "\"If financial returns sound too good to be true, you are the product, not the investor.\" The book counsels extreme skepticism toward unregulated high-yield platforms or Ponzi schemes."
+    }
+   ]
+  }
+ },
+ {
+  "id": "the-let-them-theory",
+  "title": "The Let Them Theory",
+  "subtitle": null,
+  "author": "Mel Robbins",
+  "authorNote": null,
+  "year": 2024,
+  "firstPublished": null,
+  "genre": "Self-Improvement",
+  "publisher": "Hay House",
+  "spine": {
+   "title": "The Let Them Theory",
+   "author": "Mel Robbins",
+   "background": "#2F7FD8",
+   "text": "#FFFFFF",
+   "accent": "#FFD34D",
+   "fontStyle": "heavy",
+   "decoration": "foot",
+   "widthPt": 44,
+   "heightPt": 296,
+   "tilted": false
+  },
+  "coverMotif": "burst",
+  "description": "Mel Robbins builds a whole way of living on two words. Let other people be who they are, then decide what you'll do next. The book shows how much energy comes back when you stop trying to manage things you were never in control of.",
+  "quotes": [],
+  "panels": {}
+ },
+ {
+  "id": "open",
+  "title": "Open",
+  "subtitle": "An Autobiography",
+  "author": "Andre Agassi",
+  "authorNote": null,
+  "year": 2009,
+  "firstPublished": null,
+  "genre": "Memoir & Sport",
+  "publisher": "Knopf",
+  "spine": {
+   "title": "Open",
+   "author": "Andre Agassi",
+   "background": "#F2F0EB",
+   "text": "#121212",
+   "accent": "#B8322A",
+   "fontStyle": "cond",
+   "decoration": "rule",
+   "widthPt": 50,
+   "heightPt": 300,
+   "tilted": false
+  },
+  "coverMotif": "court",
+  "description": "Andre Agassi, writing with J. R. Moehringer, gives a candid account of a champion who admits he spent much of his career hating the sport he mastered. It follows a childhood built around a ball machine and a demanding father, the rise on tour, and the long search for a life that felt like his own.",
+  "quotes": [],
+  "panels": {}
+ },
+ {
+  "id": "the-shining",
+  "title": "The Shining",
+  "subtitle": null,
+  "author": "Stephen King",
+  "authorNote": null,
+  "year": 1977,
+  "firstPublished": null,
+  "genre": "Horror",
+  "publisher": "Anchor",
+  "spine": {
+   "title": "The Shining",
+   "author": "Stephen King",
+   "background": "#131313",
+   "text": "#E9E6E0",
+   "accent": "#C4232B",
+   "fontStyle": "serif",
+   "decoration": "dot",
+   "widthPt": 50,
+   "heightPt": 284,
+   "tilted": false
+  },
+  "coverMotif": "maze",
+  "description": "Jack Torrance takes a winter caretaker job at the Overlook Hotel, high in the Colorado Rockies, and brings his wife Wendy and their five-year-old son Danny, who has a gift he doesn't fully understand. Once the snow closes the roads, the hotel begins to take an interest in the family.",
+  "quotes": [],
+  "panels": {}
+ },
+ {
+  "id": "it",
+  "title": "It",
+  "subtitle": null,
+  "author": "Stephen King",
+  "authorNote": null,
+  "year": 1986,
+  "firstPublished": null,
+  "genre": "Horror",
+  "publisher": "Scribner",
+  "spine": {
+   "title": "It",
+   "author": "Stephen King",
+   "background": "#1A1716",
+   "text": "#F2EEE6",
+   "accent": "#D8272E",
+   "fontStyle": "heavy",
+   "decoration": "foot",
+   "widthPt": 72,
+   "heightPt": 326,
+   "tilted": false
+  },
+  "coverMotif": "boat",
+  "description": "In Derry, Maine, seven kids who call themselves the Losers' Club run up against something that has been feeding on the town's children for a very long time. Decades later, one phone call asks them to come home and keep the promise they made.",
+  "quotes": [],
+  "panels": {}
+ },
+ {
+  "id": "david-and-goliath",
+  "title": "David and Goliath",
+  "subtitle": "Underdogs, Misfits, and the Art of Battling Giants",
+  "author": "Malcolm Gladwell",
+  "authorNote": null,
+  "year": 2013,
+  "firstPublished": null,
+  "genre": "Psychology & Society",
+  "publisher": "Little, Brown",
+  "spine": {
+   "title": "David and Goliath",
+   "author": "Gladwell",
+   "background": "#F5F3EE",
+   "text": "#1B1B1B",
+   "accent": "#B0472E",
+   "fontStyle": "classic",
+   "decoration": "dot",
+   "widthPt": 40,
+   "heightPt": 292,
+   "tilted": false
+  },
+  "coverMotif": "stone",
+  "description": "Gladwell revisits the oldest underdog story there is and asks what we get wrong about advantages. Using stories from classrooms, battlefields, and hospitals, he argues that the things that look like weaknesses can turn into strengths.",
+  "quotes": [],
+  "panels": {}
+ },
+ {
+  "id": "the-tipping-point",
+  "title": "The Tipping Point",
+  "subtitle": "How Little Things Can Make a Big Difference",
+  "author": "Malcolm Gladwell",
+  "authorNote": null,
+  "year": 2000,
+  "firstPublished": null,
+  "genre": "Psychology & Society",
+  "publisher": "Little, Brown",
+  "spine": {
+   "title": "The Tipping Point",
+   "author": "Gladwell",
+   "background": "#FBFAF6",
+   "text": "#1B1B1B",
+   "accent": "#E0592A",
+   "fontStyle": "classic",
+   "decoration": "rule",
+   "widthPt": 36,
+   "heightPt": 276,
+   "tilted": false
+  },
+  "coverMotif": "match",
+  "description": "Gladwell's first book looks at how ideas, products, and behaviors spread the way epidemics do. He introduces the Law of the Few, the Stickiness Factor, and the Power of Context to explain how small changes can set off very large ones.",
+  "quotes": [],
+  "panels": {}
+ },
+ {
+  "id": "outliers",
+  "title": "Outliers",
+  "subtitle": "The Story of Success",
+  "author": "Malcolm Gladwell",
+  "authorNote": null,
+  "year": 2008,
+  "firstPublished": null,
+  "genre": "Psychology & Society",
+  "publisher": "Little, Brown",
+  "spine": {
+   "title": "Outliers",
+   "author": "Gladwell",
+   "background": "#F3F1EC",
+   "text": "#16213A",
+   "accent": "#2E6FB0",
+   "fontStyle": "cond",
+   "decoration": "bands",
+   "widthPt": 38,
+   "heightPt": 288,
+   "tilted": false
+  },
+  "coverMotif": "dots",
+  "description": "Why do some people achieve so much more than everyone else? Gladwell looks past raw talent to the hidden advantages of timing, culture, and opportunity, and makes the case for the 10,000 hours it takes to get truly good at something.",
+  "quotes": [],
+  "panels": {}
+ },
+ {
+  "id": "the-body-keeps-the-score",
+  "title": "The Body Keeps the Score",
+  "subtitle": "Brain, Mind, and Body in the Healing of Trauma",
+  "author": "Bessel van der Kolk",
+  "authorNote": null,
+  "year": 2014,
+  "firstPublished": null,
+  "genre": "Psychology & Society",
+  "publisher": "Viking",
+  "spine": {
+   "title": "The Body Keeps the Score",
+   "author": "van der Kolk",
+   "background": "#F4F1EA",
+   "text": "#161616",
+   "accent": "#1F3E9A",
+   "fontStyle": "serif",
+   "decoration": "block",
+   "widthPt": 46,
+   "heightPt": 300,
+   "tilted": false
+  },
+  "coverMotif": "pulse",
+  "description": "Psychiatrist Bessel van der Kolk draws on decades of clinical work and research to show how overwhelming experiences reshape the brain and stay lodged in the body. He explains the science in plain language, then surveys paths to recovery, from EMDR, yoga, and neurofeedback to theater and the healing power of safe relationships.",
+  "quotes": [
+   {
+    "text": "Trauma is not just an event that took place in the past; it is also the imprint left by that experience on mind, brain, and body.",
+    "why": "This quote explains that trauma is an ongoing physical and psychological state, not just a memory of a bad event."
+   },
+   {
+    "text": "The body keeps the score: If the memory of trauma is encoded in our senses, in muscle tension, and in anxiety, then the body must also be involved in the healing process.",
+    "why": "It highlights the central thesis of the book: you cannot just talk away trauma with your mind; you must also heal through physical awareness and safety."
+   }
+  ],
+  "panels": {}
+ },
+ {
+  "id": "atomic-habits",
+  "title": "Atomic Habits",
+  "subtitle": "An Easy & Proven Way to Build Good Habits & Break Bad Ones",
+  "author": "James Clear",
+  "authorNote": null,
+  "year": 2018,
+  "firstPublished": null,
+  "genre": "Self-Improvement",
+  "publisher": "Avery",
+  "spine": {
+   "title": "Atomic Habits",
+   "author": "James Clear",
+   "background": "#F7F4EC",
+   "text": "#141414",
+   "accent": "#C79A2C",
+   "fontStyle": "cond",
+   "decoration": "block",
+   "widthPt": 40,
+   "heightPt": 282,
+   "tilted": false
+  },
+  "coverMotif": "atom",
+  "description": "James Clear's practical system for building good habits and dropping bad ones. His argument is that 1% improvements compound, and he lays out the Four Laws of Behavior Change for making a habit obvious, attractive, easy, and satisfying.",
+  "quotes": [],
+  "panels": {}
+ },
+ {
+  "id": "don-t-believe-everything-you-think",
+  "title": "Don't Believe Everything You Think",
+  "subtitle": "Why Your Thinking Is the Beginning & End of Suffering",
+  "author": "Joseph Nguyen",
+  "authorNote": null,
+  "year": 2022,
+  "firstPublished": null,
+  "genre": "Self-Improvement",
+  "publisher": "Joseph Nguyen",
+  "spine": {
+   "title": "Don't Believe Everything You Think",
+   "author": "Nguyen",
+   "background": "#CFE2EE",
+   "text": "#10263B",
+   "accent": "#10263B",
+   "fontStyle": "cond",
+   "decoration": "rule",
+   "widthPt": 28,
+   "heightPt": 262,
+   "tilted": false
+  },
+  "coverMotif": "cloud",
+  "description": "Joseph Nguyen argues that most of our suffering starts with how we think about our circumstances rather than the circumstances themselves. It's a short, direct read on telling the difference between having thoughts and getting lost in them.",
+  "quotes": [],
+  "panels": {}
+ },
+ {
+  "id": "ikigai",
+  "title": "Ikigai",
+  "subtitle": "The Japanese Secret to a Long and Happy Life",
+  "author": "Héctor García & Francesc Miralles",
+  "authorNote": null,
+  "year": 2017,
+  "firstPublished": 2016,
+  "genre": "Self-Improvement",
+  "publisher": "Penguin Life",
+  "spine": {
+   "title": "Ikigai",
+   "author": "García · Miralles",
+   "background": "#FAF6F1",
+   "text": "#2A2320",
+   "accent": "#D2383F",
+   "fontStyle": "serif",
+   "decoration": "dot",
+   "widthPt": 34,
+   "heightPt": 250,
+   "tilted": false
+  },
+  "coverMotif": "sun",
+  "description": "Héctor García and Francesc Miralles travel to Okinawa, home to some of the longest-lived people on earth, to learn how they live. The book explores ikigai, the reason you get up in the morning, along with the food, movement, friendships, and sense of flow that go with it.",
+  "quotes": [],
+  "panels": {}
+ },
+ {
+  "id": "the-alchemist",
+  "title": "The Alchemist",
+  "subtitle": "A Fable About Following Your Dream",
+  "author": "Paulo Coelho",
+  "authorNote": null,
+  "year": 1988,
+  "firstPublished": null,
+  "genre": "Fiction & Fable",
+  "publisher": "HarperOne",
+  "spine": {
+   "title": "The Alchemist",
+   "author": "Paulo Coelho",
+   "background": "#D9A441",
+   "text": "#2B1A0E",
+   "accent": "#7A2E1B",
+   "fontStyle": "display",
+   "decoration": "bands",
+   "widthPt": 30,
+   "heightPt": 264,
+   "tilted": false
+  },
+  "coverMotif": "dune",
+  "description": "Santiago, a young shepherd from Andalusia, keeps dreaming of treasure buried near the Egyptian pyramids, so he sets out to find it. The people he meets on the way, including a king, a crystal merchant, and an alchemist, teach him to read the omens and listen to his own heart.",
+  "quotes": [],
+  "panels": {}
+ },
+ {
+  "id": "the-mountain-is-you",
+  "title": "The Mountain Is You",
+  "subtitle": "Transforming Self-Sabotage into Self-Mastery",
+  "author": "Brianna Wiest",
+  "authorNote": null,
+  "year": 2020,
+  "firstPublished": null,
+  "genre": "Self-Improvement",
+  "publisher": "Thought Catalog",
+  "spine": {
+   "title": "The Mountain Is You",
+   "author": "Brianna Wiest",
+   "background": "#D8CBB6",
+   "text": "#2E2419",
+   "accent": "#6B5438",
+   "fontStyle": "display",
+   "decoration": "rule",
+   "widthPt": 34,
+   "heightPt": 272,
+   "tilted": false
+  },
+  "coverMotif": "peak",
+  "description": "Brianna Wiest makes the case that the biggest obstacle in most lives is internal. The book explains where self-sabotage comes from, what it's quietly protecting you from, and how to build the emotional intelligence to get past it.",
+  "quotes": [],
+  "panels": {}
+ },
+ {
+  "id": "the-art-of-letting-go",
+  "title": "The Art of Letting Go",
+  "subtitle": "Stop Overthinking, Break Negative Cycles, and Embrace Peace",
+  "author": "Lucas Hayes",
+  "authorNote": null,
+  "year": 2025,
+  "firstPublished": null,
+  "genre": "Self-Improvement",
+  "publisher": "Independent",
+  "spine": {
+   "title": "The Art of Letting Go",
+   "author": "Lucas Hayes",
+   "background": "#8FA392",
+   "text": "#FBFAF5",
+   "accent": "#2F3E34",
+   "fontStyle": "display",
+   "decoration": "foot",
+   "widthPt": 30,
+   "heightPt": 258,
+   "tilted": false
+  },
+  "coverMotif": "wave",
+  "description": "The first book in Lucas Hayes's Overthinking Cure series offers practical tools for quieting a busy mind. It covers spotting negative thought loops, releasing what you can't control, and building routines that make calm your default.",
+  "quotes": [],
+  "panels": {}
+ }
+]

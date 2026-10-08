@@ -13,6 +13,7 @@ struct LibraryView: View {
             InkBackground()
             ScrollView {
                 VStack(alignment: .leading, spacing: Theme.Spacing.lg) {
+                    DigitalLibraryBanner()
                     segmentPicker
                     if model.segment != .moments, !model.availableGenres.isEmpty {
                         genreChips
@@ -336,4 +337,41 @@ struct SavedMomentRow: View {
             .navigationDestination(for: AppRoute.self) { RouteDestinationView(route: $0) }
     }
     .withPreviewEnvironment()
+}
+
+// MARK: - Digital Library entry
+
+/// Entry point to Omari's Digital Library: a strip of real spines and a link to the shelf.
+private struct DigitalLibraryBanner: View {
+    var body: some View {
+        NavigationLink(value: AppRoute.digitalShelf(genre: nil)) {
+            HStack(alignment: .bottom, spacing: Theme.Spacing.md) {
+                HStack(alignment: .bottom, spacing: 2) {
+                    ForEach(DLCatalog.books.prefix(6)) { book in
+                        DLSpineView(book: book, scale: 0.26)
+                    }
+                }
+                .accessibilityHidden(true)
+                VStack(alignment: .leading, spacing: 4) {
+                    DLEyebrow(text: "A personal archive")
+                    Text("Omari's Digital Library")
+                        .font(.system(.title3, design: .serif).italic())
+                        .foregroundStyle(Theme.Palette.parchment)
+                    Text("\(DLCatalog.books.count) volumes · quotes, summaries, recommendations")
+                        .font(.bbCaption)
+                        .foregroundStyle(Theme.Palette.parchmentMuted)
+                }
+                Spacer(minLength: 0)
+                Image(systemName: "chevron.right")
+                    .foregroundStyle(Theme.Palette.parchmentMuted)
+                    .accessibilityHidden(true)
+            }
+            .bbCard()
+            .contentShape(Rectangle())
+        }
+        .buttonStyle(.plain)
+        .accessibilityElement(children: .combine)
+        .accessibilityLabel("Omari's Digital Library, \(DLCatalog.books.count) volumes")
+        .accessibilityHint("Opens the shelf")
+    }
 }

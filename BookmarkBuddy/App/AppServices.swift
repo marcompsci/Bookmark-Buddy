@@ -15,20 +15,29 @@ struct AppServices: Sendable {
     let privacy: any PrivacySettingsStore
     let profiles: any UserProfileStore
     let moderation: any ModerationService
+    /// Recommendations readers leave on Omari's Digital Library shelf.
+    let shelfRecommendations: any DLRecommendationService
 
-    /// Live services backed by Supabase. Quiz, summary, Pip, and moderation run locally
-    /// since they require no server data. Profile, books, squads, and events hit the database.
+    /// Live services backed by Supabase. Quiz, summary and Pip run on-device; profile, books,
+    /// squads, events and moderation (reports + blocks) hit the database.
     static func live() -> AppServices {
-        AppServices(
+        let pip: any PipAssistantService = {
+            if #available(iOS 26, *) {
+                return FoundationModelsPipService()
+            }
+            return MockPipAssistantService()
+        }()
+        return AppServices(
             books: SupabaseBookRepository(),
             squads: SupabaseSquadRepository(),
             quizzes: MockQuizService(),
             summaries: MockSummaryService(),
-            pip: MockPipAssistantService(),
+            pip: pip,
             events: SupabaseEventService(),
             privacy: SupabasePrivacyStore(),
             profiles: SupabaseUserProfileStore(),
-            moderation: MockModerationService()
+            moderation: SupabaseModerationService(),
+            shelfRecommendations: SupabaseDLRecommendationService()
         )
     }
 
@@ -44,7 +53,8 @@ struct AppServices: Sendable {
             events: MockEventService(latency: .milliseconds(300)),
             privacy: LocalPrivacySettingsStore(store: LocalStore()),
             profiles: LocalUserProfileStore(store: LocalStore()),
-            moderation: MockModerationService()
+            moderation: MockModerationService(),
+            shelfRecommendations: LocalDLRecommendationService()
         )
     }
 
@@ -59,7 +69,8 @@ struct AppServices: Sendable {
             events: MockEventService(latency: .zero),
             privacy: LocalPrivacySettingsStore(store: nil),
             profiles: LocalUserProfileStore(store: nil, seed: profile),
-            moderation: MockModerationService(latency: .zero)
+            moderation: MockModerationService(latency: .zero),
+            shelfRecommendations: LocalDLRecommendationService()
         )
     }
 }

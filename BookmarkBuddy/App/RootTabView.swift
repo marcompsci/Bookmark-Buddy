@@ -102,6 +102,14 @@ struct RouteDestinationView: View {
             UserPublicShelfView(user: user)
         case .recommendedShelf:
             RecommendedShelfView()
+        case .digitalShelf(let genre):
+            DLShelfView(initialGenre: genre)
+        case .digitalBook(let id):
+            DLBookDetailView(bookID: id)
+        case .digitalCatalogue:
+            DLCatalogueView()
+        case .recommendToOmari:
+            DLRecommendView()
         }
     }
 }

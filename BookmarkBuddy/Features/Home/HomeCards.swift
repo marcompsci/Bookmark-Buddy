@@ -484,6 +484,61 @@ struct ActivityRow: View {
     .preferredColorScheme(.dark)
 }
 
+// MARK: - Memory Garden teaser (Home)
+
+struct MemoryGardenTeaser: View {
+    let onSeeGarden: () -> Void
+    @Environment(\.services) private var services
+    @State private var entries: [MemoryGardenEntry] = []
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: Theme.Spacing.md) {
+            HStack(spacing: Theme.Spacing.sm) {
+                Image(systemName: "leaf.fill")
+                    .foregroundStyle(Theme.Palette.forestBright)
+                    .accessibilityHidden(true)
+                Text("Memory Garden")
+                    .font(.bbHeadline)
+                    .foregroundStyle(Theme.Palette.forestBright)
+                    .accessibilityAddTraits(.isHeader)
+                Spacer()
+                if !entries.isEmpty {
+                    Text("\(entries.count) plant\(entries.count == 1 ? "" : "s")")
+                        .font(.bbCaption)
+                        .foregroundStyle(Theme.Palette.parchmentMuted)
+                }
+            }
+
+            if entries.isEmpty {
+                Text("Finish a book and it sprouts here. Answer daily questions to help it grow.")
+                    .font(.bbCallout)
+                    .foregroundStyle(Theme.Palette.parchmentMuted)
+                    .fixedSize(horizontal: false, vertical: true)
+            } else {
+                let avg = entries.map(\.strength).reduce(0, +) / Double(entries.count)
+                HStack(alignment: .bottom, spacing: Theme.Spacing.md) {
+                    ForEach(entries.prefix(3)) { entry in
+                        PlantShape(strength: entry.strength)
+                            .frame(width: 40, height: 56)
+                            .accessibilityHidden(true)
+                    }
+                    Spacer(minLength: 0)
+                    Text("\(Int((avg * 100).rounded()))% avg. memory")
+                        .font(.bbCaption)
+                        .foregroundStyle(Theme.Palette.parchmentMuted)
+                        .multilineTextAlignment(.trailing)
+                }
+            }
+
+            SecondaryButton(title: "See your garden", systemImage: "leaf.fill", action: onSeeGarden)
+        }
+        .bbCard()
+        .task {
+            entries = (try? await services.quizzes.memoryGarden()) ?? []
+        }
+    }
+}
+
 // MARK: - Digital Library welcome
 
 struct DigitalLibraryWelcome: View {

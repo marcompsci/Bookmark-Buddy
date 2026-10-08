@@ -30,8 +30,21 @@ final class SupabaseAuthService: NSObject, @unchecked Sendable {
 
     // MARK: - Email / Password
 
-    func signUp(email: String, password: String) async throws {
-        try await client.auth.signUp(email: email, password: password)
+    /// Creates the account. Returns `true` when the person is signed in right away, or `false`
+    /// when Supabase sent a confirmation email first (the link opens the app via bookmarkbuddy://).
+    @discardableResult
+    func signUp(email: String, password: String) async throws -> Bool {
+        let response = try await client.auth.signUp(
+            email: email,
+            password: password,
+            redirectTo: URL(string: SupabaseConfig.oauthRedirectURL)
+        )
+        return response.session != nil
+    }
+
+    /// Finishes sign-in from a bookmarkbuddy:// link (email confirmation, magic link, OAuth).
+    func handleOpenURL(_ url: URL) async throws {
+        try await client.auth.session(from: url)
     }
 
     func signIn(email: String, password: String) async throws {
@@ -43,7 +56,7 @@ final class SupabaseAuthService: NSObject, @unchecked Sendable {
     }
 
     func resetPassword(email: String) async throws {
-        try await client.auth.resetPasswordForEmail(email)
+        try await client.auth.resetPasswordForEmail(email, redirectTo: URL(string: SupabaseConfig.oauthRedirectURL))
     }
 
     func signOut() async throws {
