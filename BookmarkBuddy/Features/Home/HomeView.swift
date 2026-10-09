@@ -18,7 +18,7 @@ struct HomeView: View {
                 VStack(alignment: .leading, spacing: Theme.Spacing.xl) {
                     HomeHeader(profile: appState.profile)
                     content
-                    Text("All books shown are fictional demo titles.")
+                    Text("Story titles like The Glass Harbor are fictional demo content.")
                         .font(.bbCaption)
                         .foregroundStyle(Theme.Palette.parchmentMuted)
                         .frame(maxWidth: .infinity)

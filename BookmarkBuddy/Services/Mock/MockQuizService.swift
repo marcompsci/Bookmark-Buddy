@@ -36,16 +36,30 @@ actor MockQuizService: QuizService {
     // MARK: Quizzes
 
     func availableModes(for bookID: UUID) async -> [QuizMode] {
-        // Quick Recall is fully built for The Glass Harbor only in the MVP.
-        bookID == DemoData.IDs.glassHarbor ? [.quickRecall] : []
+        DemoData.refreshQuestions[bookID] != nil ? [.quickRecall] : []
     }
 
     func quiz(bookID: UUID?, mode: QuizMode) async throws -> Quiz? {
         await DemoLatency.pause(latency)
         switch mode {
         case .quickRecall:
-            guard bookID == DemoData.IDs.glassHarbor else { return nil }
-            return DemoData.glassHarborQuiz
+            if bookID == DemoData.IDs.glassHarbor { return DemoData.glassHarborQuiz }
+            if let bookID,
+               let questions = DemoData.refreshQuestions[bookID],
+               !questions.isEmpty,
+               let book = allBooks.first(where: { $0.id == bookID }) {
+                var shuffled = questions
+                var gen = SeededGenerator(seed: Self.daySeed() &+ UInt64(abs(book.title.hashValue % 10_000)))
+                shuffled.shuffle(using: &gen)
+                return Quiz(
+                    id: bookID,
+                    bookID: bookID,
+                    mode: .quickRecall,
+                    title: "Quick Recall · \(book.title)",
+                    questions: Array(shuffled.prefix(3))
+                )
+            }
+            return nil
         case .titleAndAuthor:
             return titleAndAuthorQuiz()
         case .characterMatch, .timelineOrder, .themeTalk:

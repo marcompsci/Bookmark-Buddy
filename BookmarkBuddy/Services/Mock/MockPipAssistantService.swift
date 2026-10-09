@@ -39,12 +39,20 @@ actor MockPipAssistantService: PipAssistantService {
             return next(for: context, name: name)
         }
 
-        // "Quiz me on The Glass Harbor."
+        // "Quiz me on X."
         if prompt.contains("quiz") || prompt.contains("test me") {
-            if let book = context.currentBook?.book ?? DemoData.books.first(where: { $0.title.localizedCaseInsensitiveContains("glass harbor") }) {
+            let bookWithQuestions: Book?
+            if let current = context.currentBook?.book,
+               DemoData.refreshQuestions[current.id] != nil || current.id == DemoData.IDs.glassHarbor {
+                bookWithQuestions = current
+            } else {
+                bookWithQuestions = PersonalShelf.books.first(where: { DemoData.refreshQuestions[$0.id] != nil })
+                    ?? DemoData.books.first(where: { $0.id == DemoData.IDs.glassHarbor })
+            }
+            if let book = bookWithQuestions {
                 return PipMessage(
                     role: .pip,
-                    text: "Let's test your memory of \(book.title)! I'll give you three quick recall questions.",
+                    text: "Let's test your memory of \(book.title)! Tap below to start.",
                     action: .startQuiz(bookID: book.id)
                 )
             }
@@ -56,7 +64,7 @@ actor MockPipAssistantService: PipAssistantService {
             if let current = context.currentBook {
                 return PipMessage(
                     role: .pip,
-                    text: "You're on Chapter \(current.progress?.currentChapter ?? 1) of \(current.book.title). \(current.book.premise) — Demo AI summary, not a real AI response.",
+                    text: "\(current.book.title) by \(current.book.author). \(current.book.premise)",
                     action: .openBook(current.book.id)
                 )
             }
@@ -117,7 +125,7 @@ actor MockPipAssistantService: PipAssistantService {
         if prompt.contains("how do i") || prompt.contains("navigate") || prompt.contains("help me") || prompt.contains("tutorial") {
             return PipMessage(
                 role: .pip,
-                text: "I've got you, \(name)! Here's the quick tour: Home has your current book and my daily nudge. Squad is your reading group. Play has quizzes and your memory garden. Library holds all your books. Explore lets you discover other readers. Want me to walk you through planning a trivia night?",
+                text: "Happy to help, \(name)! Home has your current book and my daily nudge. Squad is your reading group. Garden has quizzes and your memory garden. Library holds all your books. Explore lets you discover other readers. Want me to walk you through planning a trivia night?",
                 action: .startGuide(walkthroughID: DemoData.triviaNightWalkthrough.id)
             )
         }
@@ -134,7 +142,7 @@ actor MockPipAssistantService: PipAssistantService {
         // Fallback
         return PipMessage(
             role: .pip,
-            text: "Hi \(name)! I'm not sure what you mean by that yet — try one of the quick commands, or ask me to quiz you, summarize your book, or help you navigate.",
+            text: "Didn't catch that, \(name). Try: \"quiz me\", \"what should I do next?\", \"summarize my book\", or \"take me to my squad\".",
             action: nil
         )
     }

@@ -23,6 +23,7 @@ final class PlayViewModel {
     private(set) var state: LoadState<Content> = .idle
     var showsFullGarden = false
     var refreshingBook: Book?
+    private(set) var quickRecallBookID: UUID? = DemoData.IDs.glassHarbor
 
     var content: Content? { state.value }
 
@@ -35,6 +36,10 @@ final class PlayViewModel {
             let loadedBoard = try await leaderboard
             let loadedGarden = try await garden
             state = .loaded(Content(leaderboard: loadedBoard, garden: loadedGarden))
+            let candidate = loadedGarden
+                .filter { DemoData.refreshQuestions[$0.book.id] != nil }
+                .min { $0.strength < $1.strength }
+            quickRecallBookID = candidate?.book.id ?? DemoData.IDs.glassHarbor
         } catch {
             if content == nil { state = .failed(error.localizedDescription) }
         }
@@ -42,7 +47,7 @@ final class PlayViewModel {
 
     func availability(of mode: QuizMode) -> ModeAvailability {
         switch mode {
-        case .quickRecall: .playable(bookID: DemoData.IDs.glassHarbor)
+        case .quickRecall: .playable(bookID: quickRecallBookID)
         case .titleAndAuthor: .playable(bookID: nil)
         case .characterMatch, .timelineOrder, .themeTalk: .comingSoon
         }

@@ -2,6 +2,7 @@
 // Bookmark Buddy — Unauthorized copying or distribution is prohibited.
 
 import SwiftUI
+import UserNotifications
 
 struct PlayView: View {
     @Environment(AppRouter.self) private var router
@@ -204,12 +205,10 @@ private struct QuizModeTile: View {
 
 // MARK: - Reminder settings (placeholder)
 
-/// Local-only reminder preference. Does NOT request notification permission or schedule anything yet.
-/// TODO(prod): When the person turns this on, explain the benefit, then request notification
-/// permission in context and schedule with UNUserNotificationCenter.
 struct RefreshScheduleCard: View {
     @AppStorage(StorageKeys.refreshReminderEnabled) private var isEnabled = false
     @AppStorage(StorageKeys.refreshReminderHour) private var hour = 19
+    @State private var authorizationDenied = false
 
     private func label(for hour: Int) -> String {
         var components = DateComponents()
@@ -234,6 +233,14 @@ struct RefreshScheduleCard: View {
                     }
                 }
                 .tint(Theme.Palette.gold)
+                .onChange(of: isEnabled) { _, newValue in
+                    authorizationDenied = false
+                    if newValue {
+                        Task { await requestAndSchedule() }
+                    } else {
+                        cancelNotification()
+                    }
+                }
 
                 if isEnabled {
                     Picker("Reminder time", selection: $hour) {
@@ -243,15 +250,58 @@ struct RefreshScheduleCard: View {
                     }
                     .pickerStyle(.menu)
                     .tint(Theme.Palette.gold)
+                    .onChange(of: hour) { _, _ in
+                        Task { await scheduleNotification() }
+                    }
                 }
 
-                Label("Demo only: no notifications are scheduled and no permission is requested yet.", systemImage: "bell.slash")
-                    .font(.bbCaption)
-                    .foregroundStyle(Theme.Palette.parchmentMuted)
-                    .fixedSize(horizontal: false, vertical: true)
+                if authorizationDenied {
+                    Label("Enable notifications in Settings → Bookmark Buddy to receive daily reminders.", systemImage: "bell.slash")
+                        .font(.bbCaption)
+                        .foregroundStyle(Theme.Palette.danger.opacity(0.85))
+                        .fixedSize(horizontal: false, vertical: true)
+                }
             }
             .bbCard()
         }
+    }
+
+    private func requestAndSchedule() async {
+        let center = UNUserNotificationCenter.current()
+        let granted = (try? await center.requestAuthorization(options: [.alert, .sound])) ?? false
+        guard granted else {
+            isEnabled = false
+            authorizationDenied = true
+            return
+        }
+        await scheduleNotification()
+    }
+
+    private func scheduleNotification() async {
+        let center = UNUserNotificationCenter.current()
+        center.removePendingNotificationRequests(withIdentifiers: ["bb.memoryRefresh"])
+
+        let content = UNMutableNotificationContent()
+        content.title = "Memory Refresh"
+        content.body = "One quick question keeps your finished books alive. Tap to start."
+        content.sound = .default
+
+        var components = DateComponents()
+        components.hour = hour
+        components.minute = 0
+
+        let trigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: true)
+        let request = UNNotificationRequest(
+            identifier: "bb.memoryRefresh",
+            content: content,
+            trigger: trigger
+        )
+        try? await center.add(request)
+    }
+
+    private func cancelNotification() {
+        UNUserNotificationCenter.current()
+            .removePendingNotificationRequests(withIdentifiers: ["bb.memoryRefresh"])
     }
 }
 
