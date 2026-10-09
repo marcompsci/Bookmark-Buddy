@@ -346,7 +346,12 @@ enum DemoData {
     )
 
     /// Spaced-repetition prompts for finished books.
+    /// Demo fiction titles use original questions. Real books use thematic/factual
+    /// questions about the book's ideas — no proprietary text is reproduced.
     static let refreshQuestions: [UUID: [QuizQuestion]] = [
+
+        // ── Demo fiction ──────────────────────────────────────────────────────
+
         IDs.glassHarbor: [
             QuizQuestion(
                 id: id(6011),
@@ -380,6 +385,203 @@ enum DemoData {
                 correctIndex: 0,
                 explanation: "She tried to walk every forgotten border in a single year.",
                 drawsOnChapter: 1
+            )
+        ],
+
+        // ── Real books (personal shelf — thematic/factual, no text reproduced) ─
+
+        // Atomic Habits — James Clear (PersonalShelf index 9 → id 809)
+        id(809): [
+            QuizQuestion(
+                id: id(6091),
+                prompt: "James Clear argues habits are best built by focusing on…",
+                options: [
+                    "Identity — becoming the type of person who does the habit",
+                    "Outcome goals — keeping the end result front of mind",
+                    "Willpower — pushing through discomfort each time",
+                    "Motivation — waiting until you genuinely want to do it"
+                ],
+                correctIndex: 0,
+                explanation: "Clear's core shift: every habit action is a vote for the identity you want to build, not a step toward an external goal.",
+                drawsOnChapter: 0
+            ),
+            QuizQuestion(
+                id: id(6092),
+                prompt: "Which of these is NOT one of Clear's four laws of behavior change?",
+                options: [
+                    "Make it enjoyable",
+                    "Make it obvious",
+                    "Make it attractive",
+                    "Make it easy"
+                ],
+                correctIndex: 0,
+                explanation: "The four laws are: make it obvious, make it attractive, make it easy, make it satisfying. 'Enjoyable' is not one of them.",
+                drawsOnChapter: 0
+            ),
+            QuizQuestion(
+                id: id(6093),
+                prompt: "Clear's 1% improvement rule says that getting 1% better every day for a year results in being roughly how much better?",
+                options: ["37 times better", "365 times better", "10 times better", "3 times better"],
+                correctIndex: 0,
+                explanation: "1.01 raised to the power of 365 ≈ 37.8 — the math behind why tiny daily gains compound into dramatic long-term results.",
+                drawsOnChapter: 0
+            )
+        ],
+
+        // The Intelligent Investor — Benjamin Graham (PersonalShelf index 0 → id 800)
+        id(800): [
+            QuizQuestion(
+                id: id(6001),
+                prompt: "What does Graham call the buffer he insists on between a stock's price and its true value?",
+                options: ["Margin of safety", "Value discount", "Investment reserve", "Price floor"],
+                correctIndex: 0,
+                explanation: "The margin of safety is Graham's central rule: only buy when price is significantly below intrinsic value, leaving room for error.",
+                drawsOnChapter: 0
+            ),
+            QuizQuestion(
+                id: id(6002),
+                prompt: "Graham's core distinction is between an investor and a ___.",
+                options: ["Speculator", "Analyst", "Trader", "Broker"],
+                correctIndex: 0,
+                explanation: "Investors buy value in real businesses. Speculators bet on price movements. Graham argues almost everyone calling themselves investors are actually speculators.",
+                drawsOnChapter: 0
+            ),
+            QuizQuestion(
+                id: id(6003),
+                prompt: "Graham's 'Mr. Market' parable is meant to illustrate…",
+                options: [
+                    "The market offers prices daily — you choose whether to act",
+                    "Markets always correct toward fair value within a year",
+                    "Stock prices reflect all available information",
+                    "Emotional investors always lose to rational ones"
+                ],
+                correctIndex: 0,
+                explanation: "Mr. Market shows up daily with a price — sometimes euphoric, sometimes depressed. The intelligent investor uses his prices, not his emotions, as a guide.",
+                drawsOnChapter: 0
+            )
+        ],
+
+        // Outliers — Malcolm Gladwell (PersonalShelf index 8 → id 808)
+        id(808): [
+            QuizQuestion(
+                id: id(6081),
+                prompt: "What threshold of deliberate practice does Gladwell associate with world-class expertise?",
+                options: ["10,000 hours", "5,000 hours", "20,000 hours", "7 years of daily work"],
+                correctIndex: 0,
+                explanation: "The 10,000-hour rule: elite performers in music, chess, sport, and programming had accumulated roughly 10,000 hours of deliberate practice.",
+                drawsOnChapter: 0
+            ),
+            QuizQuestion(
+                id: id(6082),
+                prompt: "Gladwell uses birth months of Canadian hockey players to illustrate which idea?",
+                options: [
+                    "Small early advantages compound into large later differences",
+                    "Genetics determines athletic ceiling",
+                    "Winter births produce stronger athletes",
+                    "Practice schedules naturally favor older players"
+                ],
+                correctIndex: 0,
+                explanation: "Players born just after the eligibility cutoff were slightly older — bigger and more coordinated — so they got more coaching. Those tiny advantages compounded over years.",
+                drawsOnChapter: 0
+            ),
+            QuizQuestion(
+                id: id(6083),
+                prompt: "What does Gladwell mean when he says Bill Gates was an 'outlier'?",
+                options: [
+                    "His success required rare luck, timing, and access, not just talent",
+                    "He was smarter than nearly every person alive",
+                    "He worked harder than any other entrepreneur in history",
+                    "He started younger than any successful founder before him"
+                ],
+                correctIndex: 0,
+                explanation: "Gates had access to a rare time-shared computer terminal in 1968 — Gladwell argues that without that specific stroke of luck, his 10,000 hours of programming would have been impossible.",
+                drawsOnChapter: 0
+            )
+        ],
+
+        // The Alchemist — Paulo Coelho (PersonalShelf index 12 → id 812)
+        id(812): [
+            QuizQuestion(
+                id: id(6121),
+                prompt: "What recurring dream sets Santiago on his journey in The Alchemist?",
+                options: [
+                    "Treasure buried near the Egyptian Pyramids",
+                    "A woman waiting for him in Andalusia",
+                    "A map drawn by a mysterious old king",
+                    "A city made entirely of gold"
+                ],
+                correctIndex: 0,
+                explanation: "A child in Santiago's recurring dream shows him treasure hidden at the base of the Pyramids — the journey to find it becomes the entire plot.",
+                drawsOnChapter: 0
+            ),
+            QuizQuestion(
+                id: id(6122),
+                prompt: "In The Alchemist, what does Coelho mean by a 'Personal Legend'?",
+                options: [
+                    "The unique path each person is meant to follow in life",
+                    "A story told about you after you die",
+                    "The reputation you build through good deeds",
+                    "A prophecy given to you at birth"
+                ],
+                correctIndex: 0,
+                explanation: "Your Personal Legend is what you have always wanted to accomplish — Coelho's central argument is that the universe conspires to help those who pursue it.",
+                drawsOnChapter: 0
+            ),
+            QuizQuestion(
+                id: id(6123),
+                prompt: "The Alchemist teaches that the secret of life can be found by…",
+                options: [
+                    "Reading the Soul of the World — the signs around you",
+                    "Accumulating wealth and using it wisely",
+                    "Seeking guidance from wise teachers",
+                    "Staying loyal to those who love you"
+                ],
+                correctIndex: 0,
+                explanation: "The Alchemist tells Santiago that everything in the world is written in the same language — learning to read those signs is the real treasure.",
+                drawsOnChapter: 0
+            )
+        ],
+
+        // The Body Keeps the Score — Bessel van der Kolk (PersonalShelf index 16 → id 816)
+        id(816): [
+            QuizQuestion(
+                id: id(6161),
+                prompt: "Van der Kolk's central claim is that trauma primarily…",
+                options: [
+                    "Reshapes the body's nervous system and physical responses",
+                    "Erases conscious memory of the event",
+                    "Affects interpersonal relationships before the body",
+                    "Lives only in language and the stories we tell ourselves"
+                ],
+                correctIndex: 0,
+                explanation: "The body 'keeps the score' — trauma is stored in physical sensations, reflexes, and nervous-system responses that persist even when conscious memory fades.",
+                drawsOnChapter: 0
+            ),
+            QuizQuestion(
+                id: id(6162),
+                prompt: "Which approach does van der Kolk NOT recommend as a primary trauma treatment?",
+                options: [
+                    "Suppressing memories through willpower and discipline",
+                    "EMDR therapy",
+                    "Theater, movement, and body-based practices",
+                    "Yoga and nervous-system regulation"
+                ],
+                correctIndex: 0,
+                explanation: "Van der Kolk explicitly argues against willpower-based suppression — healing requires processing trauma through the body, not overriding it with rational thought.",
+                drawsOnChapter: 0
+            ),
+            QuizQuestion(
+                id: id(6163),
+                prompt: "Van der Kolk argues that trauma survivors struggle most with…",
+                options: [
+                    "Feeling safe in their own bodies",
+                    "Forming new long-term memories",
+                    "Understanding why the trauma happened",
+                    "Maintaining consistent sleep patterns"
+                ],
+                correctIndex: 0,
+                explanation: "The core wound of trauma is feeling unsafe inside your own skin — which is why talk therapy alone often isn't enough and body-based work matters.",
+                drawsOnChapter: 0
             )
         ]
     ]

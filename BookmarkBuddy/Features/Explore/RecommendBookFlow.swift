@@ -153,7 +153,11 @@ struct RecommendBookFlow: View {
             note: note.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ? nil : note,
             createdAt: .now
         )
-        DemoData.communityRecommendations.insert(rec, at: 0)
+        let store = LocalStore()
+        var saved = store.load([BookRecommendation].self, key: "communityRecommendations") ?? []
+        saved.insert(rec, at: 0)
+        try? store.save(saved, key: "communityRecommendations")
+        router.dataChanged()
         isPosting = false
         withAnimation { didPost = true }
     }

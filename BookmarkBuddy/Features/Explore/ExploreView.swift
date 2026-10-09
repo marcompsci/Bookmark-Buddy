@@ -10,9 +10,19 @@ import Observation
 @MainActor
 final class ExploreViewModel {
     private(set) var users: [ExploreUser] = DemoData.exploreUsers
-    private(set) var recommendations: [BookRecommendation] = DemoData.communityRecommendations
+    private(set) var recommendations: [BookRecommendation] = []
     private var books: [Book] = DemoData.books
     private var followedIDs: Set<UUID> = []
+    private let store = LocalStore()
+
+    init() {
+        loadFollows()
+        loadRecommendations()
+    }
+
+    func load() {
+        loadRecommendations()
+    }
 
     func shelfBooks(for user: ExploreUser) -> [Book] {
         user.shelfBookIDs.compactMap { id in books.first { $0.id == id } }
@@ -34,11 +44,22 @@ final class ExploreViewModel {
         if let idx = users.firstIndex(where: { $0.id == user.id }) {
             users[idx].isFollowing = followedIDs.contains(user.id)
         }
+        try? store.save(Array(followedIDs), key: "followedUserIDs")
     }
 
-    func addRecommendation(_ rec: BookRecommendation) {
-        DemoData.communityRecommendations.insert(rec, at: 0)
-        recommendations = DemoData.communityRecommendations
+    private func loadFollows() {
+        let saved = store.load([UUID].self, key: "followedUserIDs") ?? []
+        followedIDs = Set(saved)
+        for idx in users.indices {
+            users[idx].isFollowing = followedIDs.contains(users[idx].id)
+        }
+    }
+
+    private func loadRecommendations() {
+        let saved = store.load([BookRecommendation].self, key: "communityRecommendations") ?? []
+        let savedIDs = Set(saved.map(\.id))
+        let baseRecs = DemoData.communityRecommendations.filter { !savedIDs.contains($0.id) }
+        recommendations = saved + baseRecs
     }
 }
 
@@ -93,6 +114,9 @@ struct ExploreView: View {
         .navigationTitle("Explore")
         .toolbar(.hidden, for: .navigationBar)
         .searchable(text: $searchText, prompt: "Search readers or genres")
+        .task(id: router.dataVersion) {
+            model.load()
+        }
     }
 
     // MARK: Sub-views
