@@ -17,6 +17,8 @@ struct AppServices: Sendable {
     let moderation: any ModerationService
     /// Recommendations readers leave on Omari's Digital Library shelf.
     let shelfRecommendations: any DLRecommendationService
+    /// Each reader's own public, shareable shelf.
+    let shelves: any ShelfService
 
     /// Live services backed by Supabase. Quiz, summary and Pip run on-device; profile, books,
     /// squads, events and moderation (reports + blocks) hit the database.
@@ -37,7 +39,8 @@ struct AppServices: Sendable {
             privacy: SupabasePrivacyStore(),
             profiles: SupabaseUserProfileStore(),
             moderation: SupabaseModerationService(),
-            shelfRecommendations: SupabaseDLRecommendationService()
+            shelfRecommendations: SupabaseDLRecommendationService(),
+            shelves: SupabaseShelfService()
         )
     }
 
@@ -54,7 +57,8 @@ struct AppServices: Sendable {
             privacy: LocalPrivacySettingsStore(store: LocalStore()),
             profiles: LocalUserProfileStore(store: LocalStore()),
             moderation: MockModerationService(),
-            shelfRecommendations: LocalDLRecommendationService()
+            shelfRecommendations: LocalDLRecommendationService(),
+            shelves: LocalShelfService()
         )
     }
 
@@ -70,7 +74,8 @@ struct AppServices: Sendable {
             privacy: LocalPrivacySettingsStore(store: nil),
             profiles: LocalUserProfileStore(store: nil, seed: profile),
             moderation: MockModerationService(latency: .zero),
-            shelfRecommendations: LocalDLRecommendationService()
+            shelfRecommendations: LocalDLRecommendationService(),
+            shelves: LocalShelfService(persist: false)
         )
     }
 }

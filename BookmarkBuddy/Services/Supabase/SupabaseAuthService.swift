@@ -66,6 +66,7 @@ final class SupabaseAuthService: NSObject, @unchecked Sendable {
 
     // MARK: - Sign in with Apple
 
+    @MainActor
     func signInWithApple() async throws {
         let nonce = randomNonce()
         let hashedNonce = sha256(nonce)
@@ -107,7 +108,7 @@ final class SupabaseAuthService: NSObject, @unchecked Sendable {
             throw AuthError.badConfiguration
         }
 
-        let oauthURL = try await client.auth.getOAuthSignInURL(
+        let oauthURL = try client.auth.getOAuthSignInURL(
             provider: .google,
             redirectTo: redirectURL
         )

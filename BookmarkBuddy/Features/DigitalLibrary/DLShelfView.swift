@@ -88,6 +88,7 @@ struct DLShelfView: View {
     private var headerButtons: some View {
         DLPillButton(title: "My Catalogue") { router.push(.digitalCatalogue) }
         DLPillButton(title: "Recommend a book", filled: false) { router.push(.recommendToOmari) }
+        DLPillButton(title: "Make your own shelf", filled: false) { router.push(.myShelf) }
     }
 
     private var genreChips: some View {

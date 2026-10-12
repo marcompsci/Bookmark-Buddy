@@ -5,6 +5,9 @@
 	<!-- Registers bookmarkbuddy:// so Supabase email links (sign-up confirmation,
 	     password reset) and OAuth callbacks open the app. Merged with the
 	     settings Xcode generates (GENERATE_INFOPLIST_FILE = YES). -->
+	<!-- Uses only standard HTTPS/TLS encryption, so TestFlight won't ask about export compliance. -->
+	<key>ITSAppUsesNonExemptEncryption</key>
+	<false/>
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>

@@ -44,6 +44,12 @@ final class AppRouter {
         guide.end()
     }
 
+    /// Hidden tabs (see `AppFeatures.socialTabs`) fold into Today, so anything that
+    /// navigates to Squad/Garden/Explore still lands somewhere visible.
+    private func visible(_ tab: AppTab) -> AppTab {
+        tab.isVisible ? tab : .home
+    }
+
     func path(for tab: AppTab) -> Binding<NavigationPath> {
         Binding(
             get: { self.paths[tab] ?? NavigationPath() },
@@ -52,12 +58,13 @@ final class AppRouter {
     }
 
     func select(_ tab: AppTab, popToRoot: Bool = false) {
+        let tab = visible(tab)
         selectedTab = tab
         if popToRoot { paths[tab] = NavigationPath() }
     }
 
     func push(_ route: AppRoute, in tab: AppTab? = nil) {
-        let target = tab ?? selectedTab
+        let target = visible(tab ?? selectedTab)
         selectedTab = target
         var path = paths[target] ?? NavigationPath()
         path.append(route)

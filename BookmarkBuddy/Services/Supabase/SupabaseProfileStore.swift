@@ -120,7 +120,7 @@ struct SupabaseUserProfileStore: UserProfileStore {
         } catch {
             // Fall back to removing the profile row so the person isn't left half-deleted.
             if let uid = await SupabaseAuthService.shared.currentUserID {
-                try? await db.from("profiles").delete().eq("id", value: uid.uuidString).execute()
+                _ = try? await db.from("profiles").delete().eq("id", value: uid.uuidString).execute()
             }
         }
         try? await SupabaseAuthService.shared.signOut()
@@ -162,7 +162,7 @@ struct SupabasePrivacyStore: PrivacySettingsStore {
                 case notesVisible           = "notes_visible"
             }
         }
-        try? await db.from("privacy_settings").upsert(Upsert(
+        _ = try? await db.from("privacy_settings").upsert(Upsert(
             userId: uid,
             notesConsent: settings.notesConsent.rawValue,
             readingProgressVisible: settings.allowReadingProgress,
@@ -172,6 +172,6 @@ struct SupabasePrivacyStore: PrivacySettingsStore {
 
     func reset() async {
         guard let uid = await SupabaseAuthService.shared.currentUserID else { return }
-        try? await db.from("privacy_settings").delete().eq("user_id", value: uid.uuidString).execute()
+        _ = try? await db.from("privacy_settings").delete().eq("user_id", value: uid.uuidString).execute()
     }
 }

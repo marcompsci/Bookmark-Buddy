@@ -15,7 +15,7 @@ struct RootTabView: View {
         @Bindable var router = router
         ZStack {
             TabView(selection: $router.selectedTab) {
-                ForEach(AppTab.allCases) { tab in
+                ForEach(AppTab.visibleCases) { tab in
                     Tab(tab.title, systemImage: tab.symbol, value: tab) {
                         NavigationStack(path: router.path(for: tab)) {
                             TabRootView(tab: tab)
@@ -69,7 +69,7 @@ private struct TabRootView: View {
     var body: some View {
         switch tab {
         case .home:
-            HomeView()
+            if AppFeatures.socialTabs { HomeView() } else { TodayView() }
         case .squad:
             SquadView()
         case .play:
@@ -110,6 +110,10 @@ struct RouteDestinationView: View {
             DLCatalogueView()
         case .recommendToOmari:
             DLRecommendView()
+        case .myShelf:
+            MyShelfView()
+        case .publicShelf(let handle):
+            PublicShelfView(handle: handle)
         }
     }
 }

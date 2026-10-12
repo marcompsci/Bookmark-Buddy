@@ -25,6 +25,8 @@ final class GuideCoordinator {
     var isActive: Bool { walkthrough != nil }
 
     func start(_ walkthrough: GuideWalkthrough) {
+        // The only walkthrough today tours the Squad tab, which is hidden in v1.
+        guard AppFeatures.socialTabs else { return }
         self.walkthrough = walkthrough
         stepIndex = 0
     }

@@ -13,7 +13,12 @@ final class SupabaseManager: @unchecked Sendable {
     private init() {
         client = SupabaseClient(
             supabaseURL: URL(string: SupabaseConfig.projectURL)!,
-            supabaseKey: SupabaseConfig.anonKey
+            supabaseKey: SupabaseConfig.anonKey,
+            options: SupabaseClientOptions(
+                // Opt in to the new initial-session behavior (supabase-swift PR #822).
+                // `client.auth.session` still refreshes an expired session before returning it.
+                auth: .init(emitLocalSessionAsInitialSession: true)
+            )
         )
     }
 }

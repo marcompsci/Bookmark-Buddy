@@ -76,17 +76,7 @@ struct PipFloatingButton: View {
     }
 }
 
-extension CGPoint: @retroactive Codable {
-    public init(from decoder: any Decoder) throws {
-        var c = try decoder.unkeyedContainer()
-        self.init(x: try c.decode(CGFloat.self), y: try c.decode(CGFloat.self))
-    }
-    public func encode(to encoder: any Encoder) throws {
-        var c = encoder.unkeyedContainer()
-        try c.encode(x)
-        try c.encode(y)
-    }
-}
+// CGPoint is Codable in CoreGraphics (encoded as [x, y]), so no extension is needed.
 
 #Preview {
     ZStack {

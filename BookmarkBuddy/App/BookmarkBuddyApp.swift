@@ -34,7 +34,16 @@ struct BookmarkBuddyApp: App {
                 // bookmarkbuddy://auth/callback — email confirmation and password-reset links.
                 // Completing the session fires authStateChanges, which RootView turns into sign-in.
                 .onOpenURL { url in
-                    guard url.scheme == "bookmarkbuddy", SupabaseConfig.isConfigured else { return }
+                    guard url.scheme == "bookmarkbuddy" else { return }
+                    // bookmarkbuddy://shelf/<handle> opens a reader's public shelf.
+                    if url.host == "shelf" {
+                        let handle = ReaderShelf.normalizedHandle(url.lastPathComponent)
+                        if ReaderShelf.isValidHandle(handle) {
+                            router.push(.publicShelf(handle: handle), in: .home)
+                        }
+                        return
+                    }
+                    guard SupabaseConfig.isConfigured else { return }
                     Task { try? await SupabaseAuthService.shared.handleOpenURL(url) }
                 }
                 .alert("Security Warning", isPresented: Binding(
@@ -66,7 +75,7 @@ struct RootView: View {
                     .transition(.opacity)
                     .task(id: "authWatch") {
                         // Once the user signs in, transition to profile loading.
-                        for await (event, _) in await SupabaseManager.shared.client.auth.authStateChanges {
+                        for await (event, _) in SupabaseManager.shared.client.auth.authStateChanges {
                             if event == .signedIn {
                                 await appState.handleSignIn()
                             }

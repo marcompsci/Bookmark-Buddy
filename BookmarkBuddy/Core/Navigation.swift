@@ -8,9 +8,16 @@ enum AppTab: String, Codable, CaseIterable, Identifiable, Hashable, Sendable {
 
     var id: String { rawValue }
 
+    /// Tabs shown in the tab bar. With `AppFeatures.socialTabs` off, v1 is Today, Library and Profile.
+    static var visibleCases: [AppTab] {
+        AppFeatures.socialTabs ? allCases : [.home, .library, .profile]
+    }
+
+    var isVisible: Bool { Self.visibleCases.contains(self) }
+
     var title: String {
         switch self {
-        case .home: "Home"
+        case .home: AppFeatures.socialTabs ? "Home" : "Today"
         case .squad: "Squad"
         case .play: "Garden"
         case .library: "Library"
@@ -21,7 +28,7 @@ enum AppTab: String, Codable, CaseIterable, Identifiable, Hashable, Sendable {
 
     var symbol: String {
         switch self {
-        case .home: "house.fill"
+        case .home: AppFeatures.socialTabs ? "house.fill" : "leaf.fill"
         case .squad: "person.3.fill"
         case .play: "leaf.fill"
         case .library: "books.vertical.fill"
@@ -50,6 +57,10 @@ enum AppRoute: Hashable, Sendable {
     case digitalCatalogue
     /// Recommend a book to Omari.
     case recommendToOmari
+    /// Edit and share your own shelf.
+    case myShelf
+    /// Someone's public shelf, opened from bookmarkbuddy://shelf/<handle>.
+    case publicShelf(handle: String)
 }
 
 /// Modal flows presented from anywhere (by views, Pip, or App Intents).

@@ -74,11 +74,11 @@ actor MockPipAssistantService: PipAssistantService {
         // "Show me how to create a trivia night." / "Walk me through it" → Guide Me
         let wantsWalkthrough = ["show me how", "walk me through", "guide me", "teach me", "step by step"].contains { prompt.contains($0) }
             || (prompt.contains("how do i") && (prompt.contains("event") || prompt.contains("trivia")))
-        if wantsWalkthrough {
+        if wantsWalkthrough && AppFeatures.socialTabs {
             return PipMessage(
                 role: .pip,
                 text: "Let's do it together. I'll highlight each step — tap Next whenever you're ready, or End guide to stop.",
-                action: .startGuide(walkthroughID: DemoData.triviaNightWalkthrough.id)
+                action: AppFeatures.socialTabs ? .startGuide(walkthroughID: DemoData.triviaNightWalkthrough.id) : nil
             )
         }
 
@@ -125,8 +125,10 @@ actor MockPipAssistantService: PipAssistantService {
         if prompt.contains("how do i") || prompt.contains("navigate") || prompt.contains("help me") || prompt.contains("tutorial") {
             return PipMessage(
                 role: .pip,
-                text: "Happy to help, \(name)! Home has your current book and my daily nudge. Squad is your reading group. Garden has quizzes and your memory garden. Library holds all your books. Explore lets you discover other readers. Want me to walk you through planning a trivia night?",
-                action: .startGuide(walkthroughID: DemoData.triviaNightWalkthrough.id)
+                text: AppFeatures.socialTabs
+                    ? "Happy to help, \(name)! Home has your current book and my daily nudge. Squad is your reading group. Garden has quizzes and your memory garden. Library holds all your books. Explore lets you discover other readers. Want me to walk you through planning a trivia night?"
+                    : "Happy to help, \(name)! Today shows what you're reading and asks you one question to keep it fresh — your Memory Garden grows with every right answer. Library holds all your books, and you can share your shelf from Today or Profile.",
+                action: AppFeatures.socialTabs ? .startGuide(walkthroughID: DemoData.triviaNightWalkthrough.id) : nil
             )
         }
 
