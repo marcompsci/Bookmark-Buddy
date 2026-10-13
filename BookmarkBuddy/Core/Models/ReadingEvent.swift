@@ -20,7 +20,7 @@ enum EventType: String, Codable, CaseIterable, Identifiable, Hashable, Sendable 
     var blurb: String {
         switch self {
         case .readTogether: "Quiet co-reading with check-ins."
-        case .triviaNight: "Pip hosts a squad quiz. Points count toward the weekly board."
+        case .triviaNight: "Bite hosts a squad quiz. Points count toward the weekly board."
         case .discussionCircle: "Talk through themes with spoiler rules set in advance."
         case .sprintSession: "A focused 25-minute read with a finish-line cheer."
         }

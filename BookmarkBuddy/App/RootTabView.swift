@@ -10,6 +10,7 @@ struct RootTabView: View {
     @Environment(AppRouter.self) private var router
     @Environment(AppState.self) private var appState
     @Environment(\.services) private var services
+    @Environment(\.scenePhase) private var scenePhase
 
     var body: some View {
         @Bindable var router = router
@@ -47,6 +48,20 @@ struct RootTabView: View {
         .overlay(alignment: .top) {
             ToastOverlay()
         }
+        .task { await appBecameActive() }
+        .onChange(of: scenePhase) { _, phase in
+            if phase == .active { Task { await appBecameActive() } }
+        }
+        .onChange(of: RefreshNotifier.shared.openRefreshRequest) {
+            // A refresh notification was tapped: show Today, where the question opens.
+            router.select(.home)
+        }
+    }
+
+    /// Logs the open (for day-N retention) and tops up the next week of refresh questions.
+    private func appBecameActive() async {
+        Analytics.log(.appOpened)
+        await RefreshNotifier.shared.reschedule()
     }
 
     /// Advances or rewinds Guide Me based on where the person actually is.

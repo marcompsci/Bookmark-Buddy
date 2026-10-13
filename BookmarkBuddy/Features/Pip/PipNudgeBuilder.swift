@@ -4,7 +4,7 @@
 import Foundation
 
 /// Builds Pip's short daily nudge from local data only. Pure and deterministic, so it's easy to test.
-/// Respects "Allow Pip to use my reading progress": when that's off, the nudge stays generic.
+/// Respects "Allow Bite to use my reading progress": when that's off, the nudge stays generic.
 enum PipNudgeBuilder {
     struct Nudge: Equatable {
         var text: String

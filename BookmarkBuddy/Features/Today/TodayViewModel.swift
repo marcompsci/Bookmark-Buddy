@@ -22,7 +22,13 @@ final class TodayViewModel {
 
     func load(services: AppServices) async {
         current = (try? await services.books.currentRead()) ?? nil
-        let loadedRefresh = (try? await services.quizzes.memoryRefreshItem()) ?? nil
+        let loadedRefresh: MemoryRefreshItem?
+        if FirstRefreshPromise.isDue, let promised = FirstRefreshPromise.pendingBookID {
+            // Day two: the question Bite promised yesterday comes first.
+            loadedRefresh = (try? await services.quizzes.refreshItem(for: promised)) ?? nil
+        } else {
+            loadedRefresh = (try? await services.quizzes.memoryRefreshItem()) ?? nil
+        }
         // Don't swap the question out from under someone mid-answer.
         if refreshPhase == .collapsed { refresh = loadedRefresh }
         garden = ((try? await services.quizzes.memoryGarden()) ?? []).sorted { $0.strength < $1.strength }
@@ -39,6 +45,8 @@ final class TodayViewModel {
         let correct = item.question.isCorrect(index)
         refreshPhase = .answered(selected: index, correct: correct)
         await services.quizzes.recordRefresh(bookID: item.book.id, wasCorrect: correct)
+        FirstRefreshPromise.markAnswered(bookID: item.book.id)
+        Analytics.log(.refreshAnswered, ["source": "today", "correct": correct ? "yes" : "no"])
         garden = ((try? await services.quizzes.memoryGarden()) ?? garden).sorted { $0.strength < $1.strength }
     }
 

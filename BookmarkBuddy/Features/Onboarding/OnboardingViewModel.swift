@@ -120,6 +120,7 @@ final class OnboardingViewModel {
         defer { isSaving = false }
         do {
             try await appState.completeOnboarding(with: makeProfile())
+            Analytics.log(.onboardingCompleted, ["books_per_month": "\(booksPerMonth)"])
             return true
         } catch {
             errorMessage = "We couldn't save your profile on this device. Please try again."

@@ -11,6 +11,7 @@ struct TodayView: View {
     @Environment(AppRouter.self) private var router
     @Environment(\.services) private var services
     @State private var model = TodayViewModel()
+    @State private var showsBiteIntro = false
 
     var body: some View {
         ZStack {
@@ -20,10 +21,14 @@ struct TodayView: View {
                     header
                     if model.hasLoaded {
                         readingSection
+                        if FirstRefreshPromise.isUpcoming, let title = FirstRefreshPromise.title, let date = FirstRefreshPromise.date {
+                            RefreshPromiseCard(title: title, date: date)
+                        }
                         rememberSection
                         gardenSection
                         RefreshScheduleCard()
                         shareSection
+                        BetaFeedbackCard()
                     } else {
                         LoadingCard(label: "Loading your current book", lines: 3)
                         LoadingCard(label: "Loading today's question", lines: 4)
@@ -37,7 +42,22 @@ struct TodayView: View {
         }
         .navigationTitle("Today")
         .toolbar(.hidden, for: .navigationBar)
-        .task(id: router.dataVersion) { await model.load(services: services) }
+        .task(id: router.dataVersion) {
+            await model.load(services: services)
+            if !UserDefaults.standard.bool(forKey: StorageKeys.biteIntroDone) { showsBiteIntro = true }
+        }
+        .sheet(isPresented: $showsBiteIntro) {
+            BiteIntroSheet(currentBook: model.current?.book) {
+                router.dataChanged()
+            }
+        }
+        .onChange(of: RefreshNotifier.shared.openRefreshRequest) {
+            // Tapped a refresh notification: reload so the due question is on screen, then open it.
+            Task {
+                await model.load(services: services)
+                if model.refresh != nil { model.startRefresh() }
+            }
+        }
         .sheet(item: $model.refreshingBook) { book in
             GardenRefreshSheet(book: book)
         }
@@ -154,6 +174,7 @@ struct TodayView: View {
 
     private var shareSection: some View {
         Button {
+            Analytics.log(.shelfOpened)
             router.push(.myShelf, in: .home)
         } label: {
             HStack(spacing: Theme.Spacing.md) {

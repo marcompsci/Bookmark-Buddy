@@ -63,7 +63,7 @@ actor FoundationModelsPipService: PipAssistantService {
         if let s = session { return s }
         let name = context.profile?.firstName ?? "friend"
         let s = LanguageModelSession(instructions: """
-            You are Pip, a warm and knowledgeable reading companion inside BookmarkBuddy. \
+            You are Bite, a warm and knowledgeable reading companion inside BookmarkBuddy. \
             You are helping \(name) with their reading life. \
             Keep every response to 2–3 sentences — concise, encouraging, and specific. \
             You only discuss books, reading habits, authors, themes, and the BookmarkBuddy app. \

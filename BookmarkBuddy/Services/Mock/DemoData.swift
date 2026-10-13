@@ -284,7 +284,7 @@ enum DemoData {
                 hostMemberID: IDs.ada,
                 rsvpMemberIDs: [IDs.ada, IDs.priya, IDs.sofia],
                 bookID: IDs.glassHarbor,
-                notes: "Pip hosts. Glass Harbor spoilers allowed — everyone attending has finished it."
+                notes: "Bite hosts. Glass Harbor spoilers allowed — everyone attending has finished it."
             ),
             ReadingEvent(
                 id: IDs.sprintSunday,
@@ -630,7 +630,7 @@ enum DemoData {
             id: id(804),
             displayName: "Miles Okafor",
             avatarSeed: 5,
-            bio: "Fantasy first, then whatever Pip recommends.",
+            bio: "Fantasy first, then whatever Bite recommends.",
             favoriteGenres: [.fantasy, .sciFi, .youngAdult],
             shelfBookIDs: [IDs.saltAndLantern, IDs.orbitOfAshes, IDs.nineQuietBridges]
         )

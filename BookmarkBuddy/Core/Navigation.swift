@@ -67,7 +67,7 @@ enum AppRoute: Hashable, Sendable {
 enum AppSheet: Identifiable, Hashable, Sendable {
     case createEvent(EventType?)
     case buddyRead(bookID: UUID?)
-    /// Pip's chat. `bookID` scopes the conversation to one book ("Ask Pip about this book").
+    /// Pip's chat. `bookID` scopes the conversation to one book ("Ask Bite about this book").
     case pip(bookID: UUID?)
     /// Recommend a book to the community shelf.
     case recommendBook
@@ -87,4 +87,9 @@ enum StorageKeys {
     static let pipPosition = "bb.pipPosition"
     static let refreshReminderEnabled = "bb.refreshReminderEnabled"
     static let refreshReminderHour = "bb.refreshReminderHour"
+    static let biteIntroDone = "bb.biteIntroDone"
+    static let firstRefreshBookID = "bb.firstRefreshBookID"
+    static let firstRefreshBookTitle = "bb.firstRefreshBookTitle"
+    static let firstRefreshDate = "bb.firstRefreshDate"
+    static let feedbackCardDismissed = "bb.feedbackCardDismissed"
 }

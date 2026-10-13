@@ -41,7 +41,7 @@ enum PendingAction: Identifiable, Hashable, Sendable {
         case .startBuddyRead: "Start this buddy read?"
         case .challengeSquad: "Challenge your squad?"
         case .deleteNote: "Delete this note?"
-        case .resetPipMemory: "Reset Pip's memory?"
+        case .resetPipMemory: "Reset Bite's memory?"
         case .deleteAllLocalData: "Delete all your data?"
         case .reportContent: "Report this activity?"
         case .blockMember(let member): "Block \(member.displayName)?"
@@ -63,7 +63,7 @@ enum PendingAction: Identifiable, Hashable, Sendable {
         case .deleteNote:
             "This note will be removed from this device. This can't be undone."
         case .resetPipMemory:
-            "Pip will forget your chat history and any notes consent. Your books, notes and squad stay as they are."
+            "Bite will forget your chat history and any notes consent. Your books, notes and squad stay as they are."
         case .deleteAllLocalData:
             "Your profile, notes, saved moments and settings will be erased from this device, and onboarding will restart."
         case .reportContent:
@@ -81,7 +81,7 @@ enum PendingAction: Identifiable, Hashable, Sendable {
         case .startBuddyRead: "Start & invite"
         case .challengeSquad: "Send challenge"
         case .deleteNote: "Delete note"
-        case .resetPipMemory: "Reset Pip"
+        case .resetPipMemory: "Reset Bite"
         case .deleteAllLocalData: "Delete everything"
         case .reportContent: "Report"
         case .blockMember: "Block"

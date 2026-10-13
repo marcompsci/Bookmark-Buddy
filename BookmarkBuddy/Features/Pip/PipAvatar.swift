@@ -8,7 +8,7 @@ import SwiftUI
 ///
 /// To rename the companion, change `PipIdentity.name` — the drawing doesn't depend on it.
 enum PipIdentity {
-    static let name = "Pip"
+    static let name = "Bite"
     static let accessibilityButtonLabel = "Open \(name), your reading companion"
 }
 

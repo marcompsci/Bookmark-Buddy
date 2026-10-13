@@ -59,7 +59,7 @@ struct HomeView: View {
         case .idle, .loading:
             VStack(spacing: Theme.Spacing.lg) {
                 LoadingCard(label: "Loading your current book", lines: 4)
-                LoadingCard(label: "Loading Pip's nudge", lines: 2)
+                LoadingCard(label: "Loading Bite's nudge", lines: 2)
                 LoadingCard(label: "Loading your squad", lines: 3)
             }
         case .failed(let message):

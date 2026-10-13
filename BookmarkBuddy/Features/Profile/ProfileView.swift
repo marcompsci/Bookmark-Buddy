@@ -136,7 +136,7 @@ struct ProfileView: View {
         @Bindable var appState = appState
         return VStack(alignment: .leading, spacing: Theme.Spacing.md) {
             HStack {
-                SectionHeader(title: "Pip Privacy")
+                SectionHeader(title: "Bite Privacy")
                 Spacer()
                 Button {
                     router.push(.privacySafety, in: .profile)
@@ -178,7 +178,7 @@ struct ProfileView: View {
                     get: { permissions.allowReadingProgress },
                     set: { val in Task { await appState.updatePipPermissions { $0.allowReadingProgress = val } } }
                 )) {
-                    Label("Allow Pip to use reading progress", systemImage: "chart.line.uptrend.xyaxis")
+                    Label("Allow Bite to use reading progress", systemImage: "chart.line.uptrend.xyaxis")
                         .font(.bbCallout)
                         .foregroundStyle(Theme.Palette.parchment)
                 }
@@ -191,7 +191,7 @@ struct ProfileView: View {
                     get: { permissions.allowsNotes },
                     set: { val in Task { await appState.updatePipPermissions { $0.notesConsent = val ? .always : .denied } } }
                 )) {
-                    Label("Allow Pip to use notes & highlights", systemImage: "note.text")
+                    Label("Allow Bite to use notes & highlights", systemImage: "note.text")
                         .font(.bbCallout)
                         .foregroundStyle(Theme.Palette.parchment)
                 }
@@ -203,14 +203,14 @@ struct ProfileView: View {
                 Button {
                     router.requestConfirmation(.resetPipMemory)
                 } label: {
-                    Label("Reset Pip's memory", systemImage: "arrow.counterclockwise")
+                    Label("Reset Bite's memory", systemImage: "arrow.counterclockwise")
                         .font(.bbCallout)
                         .foregroundStyle(Theme.Palette.danger)
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .padding(Theme.Spacing.md)
                 }
                 .buttonStyle(.plain)
-                .accessibilityLabel("Reset Pip's memory — requires confirmation")
+                .accessibilityLabel("Reset Bite's memory — requires confirmation")
             }
             .background(
                 RoundedRectangle(cornerRadius: Theme.Radius.md, style: .continuous)

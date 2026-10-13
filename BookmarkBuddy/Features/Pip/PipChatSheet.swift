@@ -4,7 +4,7 @@
 import SwiftUI
 
 /// Pip's bottom-sheet chat panel with deterministic command routing,
-/// notes consent gate, and a "What Pip can see" disclosure.
+/// notes consent gate, and a "What Bite can see" disclosure.
 struct PipChatSheet: View {
     /// If non-nil, the sheet was opened from a specific book's detail view.
     var bookID: UUID?
@@ -53,7 +53,7 @@ struct PipChatSheet: View {
                     Button {
                         showWhatPipCanSee.toggle()
                     } label: {
-                        Label("What Pip can see", systemImage: "eye.circle")
+                        Label("What Bite can see", systemImage: "eye.circle")
                             .font(.bbCaption)
                             .foregroundStyle(Theme.Palette.lavender)
                     }
@@ -190,7 +190,7 @@ struct PipChatSheet: View {
                     RoundedRectangle(cornerRadius: Theme.Radius.sm)
                         .fill(Theme.Palette.inkRaised)
                 )
-                .accessibilityLabel("Message Pip")
+                .accessibilityLabel("Message Bite")
                 .onSubmit { Task { await sendUserMessage(inputText) } }
 
             Button {
@@ -201,7 +201,7 @@ struct PipChatSheet: View {
                     .foregroundStyle(inputText.isEmpty ? Theme.Palette.parchmentMuted : Theme.Palette.gold)
             }
             .disabled(inputText.isEmpty || isTyping)
-            .accessibilityLabel("Send message to Pip")
+            .accessibilityLabel("Send message to Bite")
         }
         .padding(Theme.Spacing.md)
         .background(Theme.Palette.inkRaised)
@@ -466,11 +466,11 @@ private struct NotesConsentGate: View {
                     Spacer()
                     PipAvatar(size: 72, mood: .happy)
                     VStack(spacing: Theme.Spacing.sm) {
-                        Text("Can Pip read your notes?")
+                        Text("Can Bite read your notes?")
                             .font(.bbTitle)
                             .foregroundStyle(Theme.Palette.parchment)
                             .multilineTextAlignment(.center)
-                        Text("To help you, Pip would like to access your saved notes and highlights. Your notes stay on your device and are never sent anywhere in this MVP.")
+                        Text("To help you, Bite would like to access your saved notes and highlights. Your notes stay on your device and are never sent anywhere in this MVP.")
                             .font(.bbBody)
                             .foregroundStyle(Theme.Palette.parchmentMuted)
                             .multilineTextAlignment(.center)
@@ -486,7 +486,7 @@ private struct NotesConsentGate: View {
                             onDenied()
                         }
                     }
-                    Text("You can change this any time in Profile → Pip Privacy.")
+                    Text("You can change this any time in Profile → Bite Privacy.")
                         .font(.bbCaption)
                         .foregroundStyle(Theme.Palette.parchmentMuted)
                         .multilineTextAlignment(.center)
@@ -542,7 +542,7 @@ private struct FlowLayout: Layout {
     }
 }
 
-#Preview("Pip Chat") {
+#Preview("Bite Chat") {
     PipChatSheet(bookID: nil)
         .withPreviewEnvironment()
 }

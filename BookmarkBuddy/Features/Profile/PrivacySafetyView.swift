@@ -37,7 +37,7 @@ struct PrivacySafetyView: View {
         InfoSection(
             icon: "checkmark.shield.fill",
             iconColor: Theme.Palette.forestBright,
-            title: "What Pip can access",
+            title: "What Bite can access",
             rows: [
                 InfoRow(symbol: "book.fill", text: "Your reading progress — which chapter you're on, books you're reading and have finished."),
                 InfoRow(symbol: "person.fill", text: "Your profile — name, genres, pace and spoiler preference you set during onboarding."),
@@ -54,12 +54,12 @@ struct PrivacySafetyView: View {
         InfoSection(
             icon: "xmark.shield.fill",
             iconColor: Theme.Palette.danger,
-            title: "What Pip never accesses",
+            title: "What Bite never accesses",
             rows: [
                 InfoRow(symbol: "camera.fill", text: "Your camera, microphone or photos."),
                 InfoRow(symbol: "location.fill", text: "Your location."),
                 InfoRow(symbol: "iphone", text: "Other apps on your device."),
-                InfoRow(symbol: "antenna.radiowaves.left.and.right", text: "Any data outside this app — Pip is self-contained."),
+                InfoRow(symbol: "antenna.radiowaves.left.and.right", text: "Any data outside this app — Bite is self-contained."),
                 InfoRow(symbol: "eye.slash.fill", text: "Your screen outside Bookmark Buddy — no screen recording or monitoring."),
                 InfoRow(symbol: "creditcard.fill", text: "Payment or health information.")
             ]

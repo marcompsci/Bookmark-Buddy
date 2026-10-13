@@ -24,7 +24,7 @@ enum PipAction: Codable, Hashable, Sendable {
         case .startBuddyRead: "Start a buddy read"
         case .showUpcomingEvent: "Show event"
         case .startGuide: "Guide me"
-        case .showPrivacy: "What Pip can see"
+        case .showPrivacy: "What Bite can see"
         }
     }
 }

@@ -14,6 +14,8 @@ struct BookmarkBuddyApp: App {
     init() {
         let services = SupabaseConfig.isConfigured ? AppServices.live() : AppServices.localFallback()
         _appState = State(initialValue: AppState(services: services))
+        // Set before launch finishes so answers tapped on a closed app still arrive.
+        RefreshNotifier.shared.configure(services: services)
         SecurityGuard.shared.startScreenshotMonitoring {
             // Global screenshot event — individual screens apply .screenshotProtected()
         }

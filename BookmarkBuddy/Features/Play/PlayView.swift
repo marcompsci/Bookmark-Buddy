@@ -203,7 +203,7 @@ private struct QuizModeTile: View {
     }
 }
 
-// MARK: - Reminder settings (placeholder)
+// MARK: - Reminder settings
 
 struct RefreshScheduleCard: View {
     @AppStorage(StorageKeys.refreshReminderEnabled) private var isEnabled = false
@@ -226,7 +226,7 @@ struct RefreshScheduleCard: View {
                         Text("Daily refresh reminder")
                             .font(.bbHeadline)
                             .foregroundStyle(Theme.Palette.parchment)
-                        Text("One quick question a day keeps finished books fresh.")
+                        Text("\(PipIdentity.name) sends one question a day — answer it right from the notification.")
                             .font(.bbCallout)
                             .foregroundStyle(Theme.Palette.parchmentMuted)
                             .fixedSize(horizontal: false, vertical: true)
@@ -267,41 +267,23 @@ struct RefreshScheduleCard: View {
     }
 
     private func requestAndSchedule() async {
-        let center = UNUserNotificationCenter.current()
-        let granted = (try? await center.requestAuthorization(options: [.alert, .sound])) ?? false
-        guard granted else {
+        let notifier = RefreshNotifier.shared
+        guard await notifier.requestAuthorization() else {
             isEnabled = false
             authorizationDenied = true
             return
         }
         await scheduleNotification()
+        Analytics.log(.reminderScheduled, ["hour": "\(hour)", "source": "settings"])
     }
 
     private func scheduleNotification() async {
-        let center = UNUserNotificationCenter.current()
-        center.removePendingNotificationRequests(withIdentifiers: ["bb.memoryRefresh"])
-
-        let content = UNMutableNotificationContent()
-        content.title = "Memory Refresh"
-        content.body = "One quick question keeps your finished books alive. Tap to start."
-        content.sound = .default
-
-        var components = DateComponents()
-        components.hour = hour
-        components.minute = 0
-
-        let trigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: true)
-        let request = UNNotificationRequest(
-            identifier: "bb.memoryRefresh",
-            content: content,
-            trigger: trigger
-        )
-        try? await center.add(request)
+        RefreshNotifier.shared.hour = hour
+        await RefreshNotifier.shared.reschedule()
     }
 
     private func cancelNotification() {
-        UNUserNotificationCenter.current()
-            .removePendingNotificationRequests(withIdentifiers: ["bb.memoryRefresh"])
+        Task { await RefreshNotifier.shared.cancelAll() }
     }
 }
 
