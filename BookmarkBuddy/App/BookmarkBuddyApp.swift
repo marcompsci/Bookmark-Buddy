@@ -37,6 +37,11 @@ struct BookmarkBuddyApp: App {
                 // Completing the session fires authStateChanges, which RootView turns into sign-in.
                 .onOpenURL { url in
                     guard url.scheme == "bookmarkbuddy" else { return }
+                    // bookmarkbuddy://today/refresh — tapped the home-screen widget.
+                    if url.host == "today" {
+                        RefreshNotifier.shared.requestOpenRefresh()
+                        return
+                    }
                     // bookmarkbuddy://shelf/<handle> opens a reader's public shelf.
                     if url.host == "shelf" {
                         let handle = ReaderShelf.normalizedHandle(url.lastPathComponent)

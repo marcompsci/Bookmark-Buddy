@@ -33,6 +33,9 @@ final class RefreshNotifier: NSObject, UNUserNotificationCenterDelegate {
         UNUserNotificationCenter.current().delegate = self
     }
 
+    /// Opens Today's question (from a widget tap or deep link).
+    func requestOpenRefresh() { openRefreshRequest += 1 }
+
     // MARK: Settings
 
     var isEnabled: Bool {
@@ -192,6 +195,7 @@ final class RefreshNotifier: NSObject, UNUserNotificationCenterDelegate {
             await services?.quizzes.recordRefresh(bookID: bookID, wasCorrect: correct)
             FirstRefreshPromise.markAnswered(bookID: bookID)
             Analytics.log(.refreshAnswered, ["source": "notification", "correct": correct ? "yes" : "no"])
+            WidgetBridge.publishStats()
             let reward = GardenStore.shared.lastReward
             GardenStore.shared.lastReward = nil   // celebrated in the notification instead
             await postResult(correct: correct, reply: reply, reward: reward)

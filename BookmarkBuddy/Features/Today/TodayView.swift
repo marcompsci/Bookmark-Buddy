@@ -33,6 +33,7 @@ struct TodayView: View {
                         gardenSection
                         RefreshScheduleCard()
                         shareSection
+                        CrossfallPromoCard()
                         BetaFeedbackCard()
                     } else {
                         LoadingCard(label: "Loading your current book", lines: 3)
@@ -50,6 +51,7 @@ struct TodayView: View {
         .toolbar(.hidden, for: .navigationBar)
         .task(id: router.dataVersion) {
             await model.load(services: services)
+            publishWidget()
             if !UserDefaults.standard.bool(forKey: StorageKeys.biteIntroDone) { showsBiteIntro = true }
         }
         .sheet(isPresented: $showsBiteIntro) {
@@ -57,6 +59,7 @@ struct TodayView: View {
                 router.dataChanged()
             }
         }
+        .onChange(of: GardenStore.shared.stats) { publishWidget() }
         .onChange(of: RefreshNotifier.shared.openRefreshRequest) {
             // Tapped a refresh notification: reload so the due question is on screen, then open it.
             Task {
@@ -67,6 +70,10 @@ struct TodayView: View {
         .sheet(item: $model.refreshingBook) { book in
             GardenRefreshSheet(book: book)
         }
+    }
+
+    private func publishWidget() {
+        WidgetBridge.publish(refresh: model.refresh, garden: model.garden, thirsty: model.thirstyCount)
     }
 
     // MARK: Header

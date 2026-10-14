@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C1C1C1C1C1C1C1C1C1000034 /* BookmarkBuddyWidget.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = C1C1C1C1C1C1C1C1C1000010 /* BookmarkBuddyWidget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		9D8C7BCA306AF1C70082FCFE /* Auth in Frameworks */ = {isa = PBXBuildFile; productRef = 9D8C7BC9306AF1C70082FCFE /* Auth */; };
 		9D8C7BCC306AF1C70082FCFE /* Functions in Frameworks */ = {isa = PBXBuildFile; productRef = 9D8C7BCB306AF1C70082FCFE /* Functions */; };
 		9D8C7BCE306AF1C70082FCFE /* PostgREST in Frameworks */ = {isa = PBXBuildFile; productRef = 9D8C7BCD306AF1C70082FCFE /* PostgREST */; };
@@ -15,12 +16,61 @@
 		9D8C7BD4306AF1C70082FCFE /* Supabase in Frameworks */ = {isa = PBXBuildFile; productRef = 9D8C7BD3306AF1C70082FCFE /* Supabase */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		C1C1C1C1C1C1C1C1C1000090 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B0B0B0B0B0B0B0B0B0000070 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C1C1C1C1C1C1C1C1C1000050;
+			remoteInfo = BookmarkBuddyWidget;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		C1C1C1C1C1C1C1C1C1000033 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				C1C1C1C1C1C1C1C1C1000034 /* BookmarkBuddyWidget.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		C1C1C1C1C1C1C1C1C1000010 /* BookmarkBuddyWidget.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = BookmarkBuddyWidget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		9D8C75C130698C9B0082FCFE /* SecurityGuard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecurityGuard.swift; sourceTree = "<group>"; };
 		B0B0B0B0B0B0B0B0B0000010 /* BookmarkBuddy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BookmarkBuddy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		C1C1C1C1C1C1C1C1C1000021 /* Exceptions for "BookmarkBuddyWidget" folder in "BookmarkBuddyWidget" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				BookmarkBuddyWidget.entitlements,
+				Info.plist,
+			);
+			target = C1C1C1C1C1C1C1C1C1000050 /* BookmarkBuddyWidget */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
+		C1C1C1C1C1C1C1C1C1000020 /* BookmarkBuddyWidget */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				C1C1C1C1C1C1C1C1C1000021 /* Exceptions for "BookmarkBuddyWidget" folder in "BookmarkBuddyWidget" target */,
+			);
+			path = BookmarkBuddyWidget;
+			sourceTree = "<group>";
+		};
+		C1C1C1C1C1C1C1C1C1000022 /* Shared */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Shared;
+			sourceTree = "<group>";
+		};
 		B0B0B0B0B0B0B0B0B0000020 /* BookmarkBuddy */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = BookmarkBuddy;
@@ -29,6 +79,13 @@
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		C1C1C1C1C1C1C1C1C1000030 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		B0B0B0B0B0B0B0B0B0000030 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -57,6 +114,8 @@
 			isa = PBXGroup;
 			children = (
 				B0B0B0B0B0B0B0B0B0000020 /* BookmarkBuddy */,
+				C1C1C1C1C1C1C1C1C1000020 /* BookmarkBuddyWidget */,
+				C1C1C1C1C1C1C1C1C1000022 /* Shared */,
 				B0B0B0B0B0B0B0B0B0000041 /* Products */,
 				9D8C75BE30698C890082FCFE /* Security */,
 			);
@@ -66,6 +125,7 @@
 			isa = PBXGroup;
 			children = (
 				B0B0B0B0B0B0B0B0B0000010 /* BookmarkBuddy.app */,
+				C1C1C1C1C1C1C1C1C1000010 /* BookmarkBuddyWidget.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -73,6 +133,29 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		C1C1C1C1C1C1C1C1C1000050 /* BookmarkBuddyWidget */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C1C1C1C1C1C1C1C1C1000060 /* Build configuration list for PBXNativeTarget "BookmarkBuddyWidget" */;
+			buildPhases = (
+				C1C1C1C1C1C1C1C1C1000031 /* Sources */,
+				C1C1C1C1C1C1C1C1C1000030 /* Frameworks */,
+				C1C1C1C1C1C1C1C1C1000032 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				C1C1C1C1C1C1C1C1C1000020 /* BookmarkBuddyWidget */,
+				C1C1C1C1C1C1C1C1C1000022 /* Shared */,
+			);
+			name = BookmarkBuddyWidget;
+			packageProductDependencies = (
+			);
+			productName = BookmarkBuddyWidget;
+			productReference = C1C1C1C1C1C1C1C1C1000010 /* BookmarkBuddyWidget.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		B0B0B0B0B0B0B0B0B0000050 /* BookmarkBuddy */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = B0B0B0B0B0B0B0B0B0000060 /* Build configuration list for PBXNativeTarget "BookmarkBuddy" */;
@@ -80,13 +163,16 @@
 				B0B0B0B0B0B0B0B0B0000031 /* Sources */,
 				B0B0B0B0B0B0B0B0B0000030 /* Frameworks */,
 				B0B0B0B0B0B0B0B0B0000032 /* Resources */,
+				C1C1C1C1C1C1C1C1C1000033 /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				C1C1C1C1C1C1C1C1C1000091 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				B0B0B0B0B0B0B0B0B0000020 /* BookmarkBuddy */,
+				C1C1C1C1C1C1C1C1C1000022 /* Shared */,
 			);
 			name = BookmarkBuddy;
 			packageProductDependencies = (
@@ -114,6 +200,9 @@
 					B0B0B0B0B0B0B0B0B0000050 = {
 						CreatedOnToolsVersion = 16.0;
 					};
+					C1C1C1C1C1C1C1C1C1000050 = {
+						CreatedOnToolsVersion = 16.0;
+					};
 				};
 			};
 			buildConfigurationList = B0B0B0B0B0B0B0B0B0000061 /* Build configuration list for PBXProject "BookmarkBuddy" */;
@@ -134,11 +223,19 @@
 			projectRoot = "";
 			targets = (
 				B0B0B0B0B0B0B0B0B0000050 /* BookmarkBuddy */,
+				C1C1C1C1C1C1C1C1C1000050 /* BookmarkBuddyWidget */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		C1C1C1C1C1C1C1C1C1000032 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		B0B0B0B0B0B0B0B0B0000032 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -149,6 +246,13 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		C1C1C1C1C1C1C1C1C1000031 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		B0B0B0B0B0B0B0B0B0000031 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -158,7 +262,75 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		C1C1C1C1C1C1C1C1C1000091 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C1C1C1C1C1C1C1C1C1000050 /* BookmarkBuddyWidget */;
+			targetProxy = C1C1C1C1C1C1C1C1C1000090 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
+		C1C1C1C1C1C1C1C1C1000082 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = BookmarkBuddyWidget/BookmarkBuddyWidget.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 9;
+				DEVELOPMENT_TEAM = X6LZQ3FS36;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = BookmarkBuddyWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Bookmark Buddy";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "© 2026 Omari Bell";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 0.1;
+				PRODUCT_BUNDLE_IDENTIFIER = com.omaribell.BookmarkBuddy.Widget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		C1C1C1C1C1C1C1C1C1000083 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = BookmarkBuddyWidget/BookmarkBuddyWidget.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 9;
+				DEVELOPMENT_TEAM = X6LZQ3FS36;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = BookmarkBuddyWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Bookmark Buddy";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "© 2026 Omari Bell";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 0.1;
+				PRODUCT_BUNDLE_IDENTIFIER = com.omaribell.BookmarkBuddy.Widget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
 		B0B0B0B0B0B0B0B0B0000080 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -214,8 +386,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = BookmarkBuddy.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 8;
+				CURRENT_PROJECT_VERSION = 9;
 				DEVELOPMENT_TEAM = X6LZQ3FS36;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -245,8 +418,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = BookmarkBuddy.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 8;
+				CURRENT_PROJECT_VERSION = 9;
 				DEVELOPMENT_TEAM = X6LZQ3FS36;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -275,6 +449,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		C1C1C1C1C1C1C1C1C1000060 /* Build configuration list for PBXNativeTarget "BookmarkBuddyWidget" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C1C1C1C1C1C1C1C1C1000082 /* Debug */,
+				C1C1C1C1C1C1C1C1C1000083 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		B0B0B0B0B0B0B0B0B0000060 /* Build configuration list for PBXNativeTarget "BookmarkBuddy" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

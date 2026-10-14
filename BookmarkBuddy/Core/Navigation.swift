@@ -92,4 +92,5 @@ enum StorageKeys {
     static let firstRefreshBookTitle = "bb.firstRefreshBookTitle"
     static let firstRefreshDate = "bb.firstRefreshDate"
     static let feedbackCardDismissed = "bb.feedbackCardDismissed"
+    static let crossfallPromoHiddenUntil = "bb.crossfallPromoHiddenUntil"
 }

@@ -16,6 +16,7 @@ enum AnalyticsEvent: String, Sendable {
     case notificationOpened = "notification_opened"
     case feedbackCardTapped = "feedback_card_tapped"
     case shelfOpened = "shelf_opened"
+    case crossfallPromoTapped = "crossfall_promo_tapped"
 }
 
 /// Fire-and-forget event logging into the Supabase `events` table
