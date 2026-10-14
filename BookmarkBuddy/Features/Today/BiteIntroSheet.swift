@@ -197,6 +197,8 @@ struct BiteIntroSheet: View {
             try? await services.books.updateProgress(progress)
         }
 
+        GardenStore.shared.plant(bookID: book.id)
+
         let notifier = RefreshNotifier.shared
         notifier.hour = hour
         let allowed = await notifier.requestAuthorization()

@@ -29,10 +29,11 @@ struct AppServices: Sendable {
             }
             return MockPipAssistantService()
         }()
+        let books = SupabaseBookRepository()
         return AppServices(
-            books: SupabaseBookRepository(),
+            books: books,
             squads: SupabaseSquadRepository(),
-            quizzes: MockQuizService(),
+            quizzes: LiveQuizService(books: books),
             summaries: MockSummaryService(),
             pip: pip,
             events: SupabaseEventService(),

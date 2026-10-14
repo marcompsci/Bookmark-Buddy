@@ -63,7 +63,7 @@ struct ProfileView: View {
                         .font(.bbCaption)
                         .foregroundStyle(Theme.Palette.lavender)
                     HStack(spacing: Theme.Spacing.sm) {
-                        StatPill(value: "\(profile?.currentStreakDays ?? 0)", label: "day streak", systemImage: "flame.fill")
+                        StatPill(value: "\(GardenStore.shared.liveStreak)", label: "day streak", systemImage: "flame.fill")
                         StatPill(value: "\(profile?.squadPoints ?? 0)", label: "pts", systemImage: "star.fill", tint: Theme.Palette.lavender)
                     }
                 }
@@ -111,7 +111,7 @@ struct ProfileView: View {
             LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: Theme.Spacing.md) {
                 StatCard(value: "\(finished)", label: "Books finished", icon: "checkmark.seal.fill", tint: Theme.Palette.forestBright)
                 StatCard(value: "\(totalPages)", label: "Pages read", icon: "doc.text.fill", tint: Theme.Palette.lavender)
-                StatCard(value: "\(profile?.currentStreakDays ?? 0)", label: "Day streak", icon: "flame.fill", tint: Theme.Palette.gold)
+                StatCard(value: "\(GardenStore.shared.liveStreak)", label: "Day streak", icon: "flame.fill", tint: Theme.Palette.gold)
                 StatCard(value: "\(profile?.squadPoints ?? 0)", label: "Squad points", icon: "star.fill", tint: Theme.Palette.gold)
             }
         }

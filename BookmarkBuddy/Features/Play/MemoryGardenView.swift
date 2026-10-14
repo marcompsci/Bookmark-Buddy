@@ -24,7 +24,7 @@ struct MemoryGardenView: View {
                     GardenPlot(entry: entry)
                 }
                 .buttonStyle(.plain)
-                .accessibilityLabel("\(entry.book.title), memory \(Int((entry.strength * 100).rounded())) percent, \(MemoryStrength(entry.strength).label)")
+                .accessibilityLabel("\(entry.book.title), memory \(Int((entry.strength * 100).rounded())) percent, \(MemoryStrength(entry.strength).label), \(GardenPlotStatus(entry: entry).caption)")
                 .accessibilityHint("Answers one question to refresh this book")
             }
         }
@@ -62,14 +62,51 @@ enum MemoryStrength {
     }
 }
 
+/// Watering status for a plant: when it was last refreshed and whether it's thirsty.
+struct GardenPlotStatus {
+    let entry: MemoryGardenEntry
+
+    var daysSinceWatered: Int? {
+        guard let last = entry.lastRefreshed else { return nil }
+        return Calendar.current.dateComponents([.day], from: Calendar.current.startOfDay(for: last), to: Calendar.current.startOfDay(for: .now)).day
+    }
+
+    var isThirsty: Bool {
+        if let days = daysSinceWatered { return days >= 3 }
+        return entry.strength < 0.3
+    }
+
+    var caption: String {
+        guard let days = daysSinceWatered else { return "Not watered yet" }
+        switch days {
+        case 0: return "Watered today"
+        case 1: return "Watered yesterday"
+        default: return "Watered \(days)d ago"
+        }
+    }
+}
+
 private struct GardenPlot: View {
     let entry: MemoryGardenEntry
 
     var body: some View {
         let strength = MemoryStrength(entry.strength)
+        let status = GardenPlotStatus(entry: entry)
         VStack(spacing: Theme.Spacing.xs) {
             PlantShape(strength: entry.strength)
                 .frame(height: 96)
+                .animation(.spring(response: 0.6, dampingFraction: 0.7), value: entry.strength)
+                .overlay(alignment: .topTrailing) {
+                    if status.isThirsty {
+                        Image(systemName: "drop.fill")
+                            .font(.caption)
+                            .foregroundStyle(Color(red: 0.45, green: 0.72, blue: 0.95))
+                            .padding(4)
+                            .background(Circle().fill(Theme.Palette.ink.opacity(0.8)))
+                            .symbolEffect(.pulse, options: .repeating)
+                            .accessibilityLabel("Thirsty")
+                    }
+                }
             Text(entry.book.title)
                 .font(.bbCaption)
                 .foregroundStyle(Theme.Palette.parchment)
@@ -79,6 +116,9 @@ private struct GardenPlot: View {
             Text(strength.label)
                 .font(.bbCaption)
                 .foregroundStyle(strength.tint)
+            Text(status.caption)
+                .font(.system(size: 10, weight: .medium, design: .rounded))
+                .foregroundStyle(status.isThirsty ? Color(red: 0.45, green: 0.72, blue: 0.95) : Theme.Palette.parchmentMuted)
         }
         .padding(Theme.Spacing.sm)
         .frame(maxWidth: .infinity, minHeight: 160, alignment: .top)
@@ -195,6 +235,11 @@ struct GardenRefreshSheet: View {
                             onAnswer: { index in answer(index, item: item) },
                             onNext: { Task { await loadNext() } }
                         )
+                        if let reward = GardenStore.shared.lastReward {
+                            RewardBanner(reward: reward) {
+                                withAnimation { GardenStore.shared.lastReward = nil }
+                            }
+                        }
                     } else if failed {
                         EmptyStateView(systemImage: "leaf", title: "No question yet", message: "There isn't a refresh question for this book right now.")
                     } else {

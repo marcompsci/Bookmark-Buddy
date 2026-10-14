@@ -192,7 +192,9 @@ final class RefreshNotifier: NSObject, UNUserNotificationCenterDelegate {
             await services?.quizzes.recordRefresh(bookID: bookID, wasCorrect: correct)
             FirstRefreshPromise.markAnswered(bookID: bookID)
             Analytics.log(.refreshAnswered, ["source": "notification", "correct": correct ? "yes" : "no"])
-            await postResult(correct: correct, reply: reply)
+            let reward = GardenStore.shared.lastReward
+            GardenStore.shared.lastReward = nil   // celebrated in the notification instead
+            await postResult(correct: correct, reply: reply, reward: reward)
         } else if reply.actionIdentifier == UNNotificationDefaultActionIdentifier {
             Analytics.log(.notificationOpened)
             openRefreshRequest += 1
@@ -200,11 +202,16 @@ final class RefreshNotifier: NSObject, UNUserNotificationCenterDelegate {
     }
 
     /// Immediate follow-up so the reader knows how they did without opening the app.
-    private func postResult(correct: Bool, reply: RefreshReply) async {
+    private func postResult(correct: Bool, reply: RefreshReply, reward: GardenStore.Reward?) async {
         let content = UNMutableNotificationContent()
         if correct {
-            content.title = "Nice! 🌱"
-            content.body = "\(PipIdentity.name) watered “\(reply.bookTitle)” in your Memory Garden."
+            var extras: [String] = []
+            if let reward { extras.append("+\(reward.xp) XP") }
+            if let combo = reward?.combo, combo >= 2 { extras.append("combo ×\(combo)") }
+            if let reward, reward.extendedStreak { extras.append("🔥 \(reward.streak)-day streak") }
+            content.title = "Nice! 🌱" + (extras.isEmpty ? "" : " " + extras.joined(separator: " · "))
+            content.body = reward?.newLevel.map { "Level up — you're now \(GardenStore.title(for: $0))! " } ?? ""
+            content.body += "\(PipIdentity.name) watered “\(reply.bookTitle)” in your Memory Garden."
         } else {
             let answer = reply.correctIndex.flatMap { reply.options.indices.contains($0) ? reply.options[$0] : nil } ?? ""
             content.title = "Not quite — it was “\(answer)”"

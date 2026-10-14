@@ -20,6 +20,11 @@ struct TodayView: View {
                 VStack(alignment: .leading, spacing: Theme.Spacing.xl) {
                     header
                     if model.hasLoaded {
+                        GardenHUD(
+                            gardenCount: model.garden.count,
+                            averageStrength: model.averageStrength,
+                            thirstyCount: model.thirstyCount
+                        )
                         readingSection
                         if FirstRefreshPromise.isUpcoming, let title = FirstRefreshPromise.title, let date = FirstRefreshPromise.date {
                             RefreshPromiseCard(title: title, date: date)
@@ -40,6 +45,7 @@ struct TodayView: View {
             }
             .refreshable { await model.load(services: services) }
         }
+        .animation(.spring(response: 0.45, dampingFraction: 0.85), value: GardenStore.shared.lastReward)
         .navigationTitle("Today")
         .toolbar(.hidden, for: .navigationBar)
         .task(id: router.dataVersion) {
@@ -76,9 +82,7 @@ struct TodayView: View {
                 .foregroundStyle(Theme.Palette.parchment)
                 .fixedSize(horizontal: false, vertical: true)
                 .accessibilityAddTraits(.isHeader)
-            if let streak = appState.profile?.currentStreakDays, streak > 0 {
-                StatPill(value: "\(streak)", label: "day streak", systemImage: "flame.fill")
-            }
+
         }
     }
 
@@ -120,6 +124,11 @@ struct TodayView: View {
                     onAnswer: { index in Task { await model.answerRefresh(index, services: services) } },
                     onNext: { Task { await model.nextRefresh(services: services) } }
                 )
+                if let reward = GardenStore.shared.lastReward {
+                    RewardBanner(reward: reward) {
+                        withAnimation { GardenStore.shared.lastReward = nil }
+                    }
+                }
             } else {
                 EmptyStateView(
                     systemImage: "brain.head.profile",

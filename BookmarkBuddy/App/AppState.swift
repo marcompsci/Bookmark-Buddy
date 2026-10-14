@@ -90,6 +90,7 @@ final class AppState {
     /// Signs the user out of Supabase and clears local state.
     func signOut() async {
         try? await SupabaseAuthService.shared.signOut()
+        GardenStore.shared.reset()
         profile = nil
         pipPermissions = .default
         status = .unauthenticated
@@ -101,6 +102,7 @@ final class AppState {
         await services.privacy.reset()
         await services.pip.resetMemory()
         LocalStore().removeAll()
+        GardenStore.shared.reset()
         profile = nil
         pipPermissions = .default
         status = .unauthenticated

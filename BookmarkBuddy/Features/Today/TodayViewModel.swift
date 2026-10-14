@@ -68,6 +68,11 @@ final class TodayViewModel {
         return garden.map(\.strength).reduce(0, +) / Double(garden.count)
     }
 
+    /// Plants not watered for 3+ days (or never, once they've had a day to settle).
+    var thirstyCount: Int {
+        garden.filter { GardenPlotStatus(entry: $0).isThirsty }.count
+    }
+
     /// The weakest memory — the book most worth refreshing next.
     var weakest: MemoryGardenEntry? { garden.first }
 }
